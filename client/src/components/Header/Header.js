@@ -5,7 +5,7 @@ import "./Header.css";
 
 const Header = props => (
     <Row className="header">
-        <Col xs={2}><FontAwesome name='user-circle-o' size="1.5x" /></Col>
+        <Col xs={2}><FontAwesome name='user-circle-o' size="2x" /></Col>
         <Col xs={10}>Molly Moran</Col>
     </Row>
 
