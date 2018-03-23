@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 // This file empties the GiftCard collection and inserts the cards below
 
 mongoose.connect(
-  process.env.MONGODB_URI || "mongodb://localhost/giftcardlist",
+  process.env.MONGODB_URI || "mongodb://mcginnis92:mong0db@ds123129.mlab.com:23129/heroku_z1npkg2s",
   {
     useMongoClient: true
   }
