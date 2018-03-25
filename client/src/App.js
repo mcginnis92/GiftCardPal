@@ -22,7 +22,6 @@ class App extends Component {
       <Router>
         <Switch>
           <Grid fluid>
-            <TopMenu/>
               <Header/>
                 <Route exact path="/" component={Splash} />
                 <Route exact path="/signup" component={Signup} />

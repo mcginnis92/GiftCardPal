@@ -11,7 +11,7 @@ const Header = props => (
                 {props.username}
             </Col>
         : 
-            <Col xs={12}>Welcome!</Col>
+            <Col xs={12} text="center">Gift Card Pal</Col>
         }
     </Row>
 
