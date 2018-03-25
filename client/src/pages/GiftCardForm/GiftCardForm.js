@@ -66,7 +66,7 @@ class Form extends React.Component {
                                 <FormControl 
                                     componentClass="select" 
                                     placeholder="select" 
-                                    value={this.state.value} 
+                                    // value={this.state.value} 
                                     name="category" 
                                     onChange={this.handleInputChange}>
            >
@@ -78,7 +78,7 @@ class Form extends React.Component {
                                 </FormControl>
                         </FormGroup>
 
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit" block>Submit</Button>
                     </form>
                 </Col>
             </Row>
