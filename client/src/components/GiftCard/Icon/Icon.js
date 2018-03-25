@@ -24,7 +24,7 @@ const Icon = props => {
 
     return (
         <FontAwesome className='icon' name={iconName} size='2x' />
-   )
+    )
 };
 
 export default Icon;

@@ -6,14 +6,16 @@ import "./New.css";
 const New = props => {
 
     function handleClick() {
-        alert('You have clicked on me');
-      }
-      
+        window.location ='/giftcard';
+    }
+
     return (
         <Row>
-            <Panel>
-                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                <h3>Add a New Card</h3>
+            <Panel onClick={handleClick}>
+                <Panel.Body>
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                    <h3>Add a New Card</h3>
+                </Panel.Body>
             </Panel>
         </Row>
     )
