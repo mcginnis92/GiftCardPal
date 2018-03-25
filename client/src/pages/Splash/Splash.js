@@ -5,7 +5,9 @@ import "./Splash.css";
 
 const Splash = props => (
     <Row>
-        <Col xs={12}>This is the main splash page.</Col>
+        <Col xs={12}>
+            <p>Never forget a gift card again.</p>
+        </Col>
     </Row>
 
 );

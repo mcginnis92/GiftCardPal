@@ -5,7 +5,7 @@ import "./Footer.css";
 
 const Footer = props => (
     <Row className="footer">
-        <Col xs={12}>Copyright &copy; 2018  |  Molly Moran</Col>
+        <Col xs={12} className="text">Copyright &copy; 2018  |  Molly Moran</Col>
     </Row>
 
 );

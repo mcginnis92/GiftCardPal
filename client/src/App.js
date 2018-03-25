@@ -21,7 +21,7 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Grid>
+          <Grid fluid>
             <TopMenu/>
               <Header/>
                 <Route exact path="/" component={Splash} />
