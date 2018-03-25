@@ -5,8 +5,14 @@ import "./Header.css";
 
 const Header = props => (
     <Row className="header">
-        <Col xs={2}><FontAwesome name='user-circle-o' size="2x" /></Col>
-        <Col xs={10}>Molly Moran</Col>
+        {props.username ? 
+            <Col xs={12}>
+                <span><FontAwesome name='user-circle-o' size="2x" /></span>
+                {props.username}
+            </Col>
+        : 
+            <Col xs={12}>Welcome!</Col>
+        }
     </Row>
 
 );
