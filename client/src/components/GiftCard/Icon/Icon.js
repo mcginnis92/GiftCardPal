@@ -23,9 +23,7 @@ const Icon = props => {
     const iconName = switchIcon(props.category);
 
     return (
-        <Col xs={2}>
-            <FontAwesome className='icon' name={iconName} size='2x' />
-        </Col>
+        <FontAwesome className='icon' name={iconName} size='2x' />
    )
 };
 

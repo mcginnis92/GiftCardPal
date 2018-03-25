@@ -28,6 +28,8 @@ class Login extends React.Component {
     //         })
     //         .then(res => console.log(res))
     //         .catch(err => console.log(err));
+
+    //go to HOME page ("/")
     // };
     
     render() {

@@ -1,6 +1,11 @@
-.icon {
+/* .icon {
     display: block;
     margin: 0 auto;    
     height: 100%;
-    padding: 1em;
+    padding: 0.25em;
+    vertical-align: middle;
+} */
+
+.icon {
+    float: left;
 }
