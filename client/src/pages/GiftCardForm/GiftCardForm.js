@@ -2,12 +2,14 @@ import React, { Component } from "react";
 import { Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, InputGroup, Button } from 'react-bootstrap';
 import Axios from "axios";
 import API from '../../utils/API'
+import photo from '../../photos/giftbox.png';
 
 class Form extends React.Component {
     state = {
         name: '',
         amount: '',
         category: ''
+        // image: ''
     };
 
     handleInputChange = event => {
@@ -17,19 +19,29 @@ class Form extends React.Component {
         });
         console.log("state: ", this.state);
     };
+
+    handleImageChange = event => {
+        let image = event.target.files[0];
+        let form = new FormData();
+            form.append('image', image);
+            this.setState({
+                image: form,
+            });
+    }
     
-    // handleFormSubmit = event => {
-    //     event.preventDefault();
-    //     console.log("form submitted", this.state);
+    handleFormSubmit = event => {
+        event.preventDefault();
+        console.log("form submitted", this.state);
             
-    //     API.saveCard({
-    //         name: this.state.title,
-    //         amount: this.state.amount,
-    //         category: this.state.category
-    //         })
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err));
-    // };
+        API.saveCard({
+            name: this.state.name,
+            amount: this.state.amount,
+            category: this.state.category
+            // image: this.state.image
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    };
     
     render() {
         return (
@@ -69,7 +81,7 @@ class Form extends React.Component {
                                     // value={this.state.value} 
                                     name="category" 
                                     onChange={this.handleInputChange}>
-           >
+           
                                     <option value="select">Select One</option>
                                     <option value="Activities">Activities</option>
                                     <option value="Dining">Dining</option>
@@ -78,7 +90,12 @@ class Form extends React.Component {
                                 </FormControl>
                         </FormGroup>
 
-                        <Button type="submit" block>Submit</Button>
+                        {/* <img src={photo} alt="photo"/> */}
+                        <ControlLabel>Upload an image your gift card. Make sure it contains the full gift card number and PIN.</ControlLabel> 
+                        <input type="file" id="inputFile" accept="image/*" onChange={this.handleImageChange} />
+
+
+                        <Button onClick={this.handleFormSubmit} block>Submit</Button>
                     </form>
                 </Col>
             </Row>

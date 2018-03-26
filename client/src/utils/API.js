@@ -14,7 +14,7 @@ export default {
     return axios.delete("/api/giftcards/" + id);
   },
   // Saves a giftcard to the database
-  saveCard: function(giftCardData) {
-    return axios.post("/api/giftcards", giftCardData);
+  saveCard: function(newCard) {
+    return axios.post("/api/giftcards", newCard);
   }
 };
