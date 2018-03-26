@@ -2,34 +2,59 @@ import React, { Component } from "react";
 import { Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, InputGroup, Button } from 'react-bootstrap';
 import Axios from "axios";
 import API from '../../utils/API'
+import photo from '../../photos/giftbox.png';
 
 class Form extends React.Component {
     state = {
         name: '',
         amount: '',
-        category: ''
+        category: '',
+        number: '',
+        pin: '',
+        image: ''
     };
+
+    loadCard = () => {
+        console.log("this.props.match.params.id", this.props.match.params.id);
+        API.getCard(this.props.match.params.id)
+          .then(res =>
+            this.setState({ name: res.data.name, amount: res.data.amount, category: res.data.category, image: res.data.image }),
+            document.getElementById("image").HTML('<img src=' + this.state.image + 'alt="Gift Card Image"')
+          )
+          .catch(err => console.log(err));
+      };
 
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
         });
-        console.log("state: ", this.state);
     };
+
+    handleImageChange = event => {
+        let image = event.target.files[0];
+        let form = new FormData();
+            form.append('image', image);
+            this.setState({
+                image: form,
+            });
+    }
     
-    // handleFormSubmit = event => {
-    //     event.preventDefault();
-    //     console.log("form submitted", this.state);
+    handleFormSubmit = event => {
+        event.preventDefault();
+        console.log("form submitted", this.state);
             
-    //     API.saveCard({
-    //         name: this.state.title,
-    //         amount: this.state.amount,
-    //         category: this.state.category
-    //         })
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err));
-    // };
+        API.saveCard({
+            name: this.state.name,
+            amount: this.state.amount,
+            category: this.state.category,
+            number: this.state.number,
+            pin: this.state.pin
+            // image: this.state.image
+            })
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    };
     
     render() {
         return (
@@ -69,7 +94,7 @@ class Form extends React.Component {
                                     // value={this.state.value} 
                                     name="category" 
                                     onChange={this.handleInputChange}>
-           >
+           
                                     <option value="select">Select One</option>
                                     <option value="Activities">Activities</option>
                                     <option value="Dining">Dining</option>
@@ -78,8 +103,35 @@ class Form extends React.Component {
                                 </FormControl>
                         </FormGroup>
 
-                        <Button type="submit" block>Submit</Button>
+                        <FormGroup>
+                            <ControlLabel>Enter your gift card number.</ControlLabel>
+                                <FormControl 
+                                    type="text" 
+                                    value={this.state.number} 
+                                    name="number" 
+                                    placeholder="1245678910" 
+                                    onChange={this.handleInputChange} />
+                        </FormGroup>
+
+                        <FormGroup>
+                            <ControlLabel>Enter the gift card PIN number (if applicable).</ControlLabel>
+                                <FormControl 
+                                    type="text" 
+                                    value={this.state.pin} 
+                                    name="pin" 
+                                    placeholder="1234" 
+                                    onChange={this.handleInputChange} />
+                        </FormGroup>
+
+                        {/* <ControlLabel>Upload an image your gift card. Make sure it contains the full gift card number and PIN.</ControlLabel> 
+                        <input type="file" id="inputFile" accept="image/*" onChange={this.handleImageChange} /> */}
+                        <br />
+                        
+                        <Button onClick={this.handleFormSubmit} block>Submit</Button>
                     </form>
+
+                    <Row id="image" />
+
                 </Col>
             </Row>
         );

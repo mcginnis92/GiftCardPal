@@ -5,7 +5,7 @@ export default {
   getCards: function() {
     return axios.get("/api/giftcards");
   },
-  // Gets the gift card with the given id
+  // Gets the gift card with the given name
   getCard: function(id) {
     return axios.get("/api/giftcards/" + id);
   },
@@ -14,7 +14,7 @@ export default {
     return axios.delete("/api/giftcards/" + id);
   },
   // Saves a giftcard to the database
-  saveCard: function(giftCardData) {
-    return axios.post("/api/giftcards", giftCardData);
+  saveCard: function(newCard) {
+    return axios.post("/api/giftcards", newCard);
   }
 };
