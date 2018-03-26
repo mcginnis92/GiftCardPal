@@ -5,8 +5,10 @@ const giftCardSchema = new Schema({
   name: { type: String, required: true },
   amount: { type: Number, required: true },
   category: { type: String, required: true },
-  // date: { type: Date, default: Date.now },
-  // image: { data: Buffer, contentType: String }
+  number: { type: Number, required: true },
+  pin: { type: Number, required: false },
+  // image: { data: Buffer, contentType: String },
+  date: { type: Date, default: Date.now }
 });
 
 const GiftCard = mongoose.model("giftcard", giftCardSchema);
