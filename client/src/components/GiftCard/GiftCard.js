@@ -7,7 +7,7 @@ const GiftCard = props => {
       
     return (
         <Row key={props.key}>
-            <Panel onClick={() => props.toggle(props.number, props.name, props.pin)} value={props.name}>
+            <Panel onClick={() => props.toggle(props.number, props.name, props.pin, props.amount, props.id)} value={props.name}>
                 <Panel.Body>
                     <span><Icon category={props.category} /></span>
                     <h3 className="name">{props.name}</h3>

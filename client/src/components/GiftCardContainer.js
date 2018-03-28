@@ -9,20 +9,13 @@ class GiftCardContainer extends Component {
     giftcards: [],
     modal: false,
     number: '',
-    gcname: '',
-    pin: ''
+    name: '',
+    pin: '',
+    amount: '',
+    id: ''
   };
 
   componentDidMount = () => {
-
-    // API.checkUser({
-    //   username: this.state.username,
-    //   password: this.state.password,
-    //   })
-    //   .then(res => console.log(res.data))
-    //   // .then(res => this.setState({name : res.data.name}))
-    //   .catch(err => console.log(err))
-    
     API.getUserGC({
       username: 'moose@moose.com'
     })
@@ -32,12 +25,14 @@ class GiftCardContainer extends Component {
 
   };
 
-  toggleModal = (number, name, pin) => {
+  toggleModal = (number, name, pin, amount, id) => {
     this.setState({
       modal: !this.state.modal,
       number: number,
       name: name,
-      pin: pin
+      pin: pin,
+      amount: amount,
+      id: id
     });
     console.log(number, "gcnum")
   };
@@ -51,6 +46,8 @@ class GiftCardContainer extends Component {
           number={this.state.number} 
           name={this.state.name} 
           pin={this.state.pin}
+          amount={this.state.amount}
+          id={this.state.id}
         />}
         {this.state.giftcards.map(elem => 
         <GiftCard 
@@ -61,6 +58,7 @@ class GiftCardContainer extends Component {
           number={elem.number}
           pin={elem.pin}
           toggle={this.toggleModal} 
+          id={elem._id}
         />)}
       </div>
     );

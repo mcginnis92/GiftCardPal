@@ -1,22 +1,38 @@
 import React from "react";
 import { Modal, Button, FormGroup, FormControl, InputGroup, ControlLabel } from 'react-bootstrap';
 import "./GiftCardModal.css";
+import API from '../../../utils/API';
 
 class GiftCardModal extends React.Component {
 
     state = {
         toggle: this.props.toggle,
+        id: this.props.id,
         name: this.props.name,
         number: this.props.number,
         pin: this.props.pin,
-        amount: ''
+        amount: this.props.amount,
+        spent: ''
     };
 
     handleInputChange = event => {
+        const { name, value } = event.target;
         this.setState({
-            amount: event.target.value
+            [name]: value
         });
     };
+
+    updateAmount = event => {
+        console.log('id: ', this.state.id)
+        event.preventDefault();
+
+        let newTotal = this.state.amount - this.state.spent;
+
+        API.updateCard(this.state.id, {amount: newTotal})
+        .then(this.state.toggle)
+        .catch(err => console.log(err));
+
+    }
 
     render() {
         return (
@@ -36,8 +52,8 @@ class GiftCardModal extends React.Component {
                                 <InputGroup.Addon>$</InputGroup.Addon>
                                 <FormControl 
                                     type="text" 
-                                    value={this.state.amount}
-                                    name="amount" 
+                                    value={this.state.spent}
+                                    name="spent" 
                                     // placeholder="" 
                                     onChange={this.handleInputChange} />
                             </InputGroup>
@@ -46,7 +62,7 @@ class GiftCardModal extends React.Component {
 
                     <Modal.Footer>
                         <Button onClick={this.state.toggle}>Close</Button>
-                        <Button bsStyle="primary">Save changes</Button>
+                        <Button bsStyle="primary" onClick={this.updateAmount}>Update</Button>
                     </Modal.Footer>
             
                 </Modal.Dialog>
