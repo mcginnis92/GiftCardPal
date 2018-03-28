@@ -10,7 +10,7 @@ export default {
     return axios.get("/api/giftcards/" + id);
   },
   // Deletes the gift card with the given id
-  deleteCards: function(id) {
+  deleteCard: function(id) {
     return axios.delete("/api/giftcards/" + id);
   },
   // Saves a giftcard to the database

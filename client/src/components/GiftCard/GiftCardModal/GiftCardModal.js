@@ -29,9 +29,15 @@ class GiftCardModal extends React.Component {
         let newTotal = this.state.amount - this.state.spent;
 
         API.updateCard(this.state.id, {amount: newTotal})
-        .then(this.state.toggle)
+        // .then(this.state.toggle)
+        .then(window.location = '/home')
         .catch(err => console.log(err));
+    }
 
+    removeCard = event => {
+        API.deleteCard(this.state.id)
+        .then(window.location = '/home')
+        .catch(err => console.log(err));
     }
 
     render() {
@@ -47,7 +53,7 @@ class GiftCardModal extends React.Component {
                         <p>PIN: {this.state.pin}</p>
 
                         <FormGroup>
-                            <ControlLabel>Update Amount Spent</ControlLabel>
+                            <ControlLabel>How much did you spend?</ControlLabel>
                             <InputGroup>
                                 <InputGroup.Addon>$</InputGroup.Addon>
                                 <FormControl 
@@ -61,7 +67,7 @@ class GiftCardModal extends React.Component {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button onClick={this.state.toggle}>Close</Button>
+                        <Button bsStyle="danger" onClick={this.removeCard}>Remove this Card</Button>
                         <Button bsStyle="primary" onClick={this.updateAmount}>Update</Button>
                     </Modal.Footer>
             
