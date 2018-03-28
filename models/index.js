@@ -1,4 +1,5 @@
 module.exports = {
   // Book: require("./book")
-  GiftCard: require("./giftcard")
+  GiftCard: require("./giftcard"),
+  User: require("./user")
 };

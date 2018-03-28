@@ -4,10 +4,10 @@ module.exports = {
   //FIND A GIVEN USER'S GIFTCARDS
   findOne: function(req, res) {
     db.User
-      .findOne({'username': req.params.username})
+      .findOne(req.params)
       .populate("giftcards")
       .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .catch(err =>  res.status(422).json(err));
   },
   //CREATE A NEW USER
   create: function(req, res) {

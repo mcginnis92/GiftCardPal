@@ -23,7 +23,7 @@ var Schema = mongoose.Schema;
         giftcards: [
             {
             type: Schema.Types.ObjectId,
-            ref: "GiftCard"
+            ref: "giftcard"
             }
         ]
     });

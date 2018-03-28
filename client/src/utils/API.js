@@ -24,4 +24,9 @@ export default {
   saveUser: function(newUser) {
     return axios.post("/api/users", newUser);
   },
+  //Finds a user's gift cards
+  getUserGC: function(username){
+    console.log(username);
+    return axios.get("/api/users/" + username.username);
+  }
 };
