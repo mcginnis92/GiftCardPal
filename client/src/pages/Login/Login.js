@@ -1,6 +1,5 @@
-import React, {Component} from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, InputGroup, Button } from "react-bootstrap";
-import FontAwesome from 'react-fontawesome';
+import React from "react";
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from "react-bootstrap";
 import "./Login.css";
 
 class Login extends React.Component {

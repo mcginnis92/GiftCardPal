@@ -1,8 +1,7 @@
-import React, { Component } from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, InputGroup, Button } from 'react-bootstrap';
-import Axios from "axios";
+import React from "react";
+import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
 import API from '../../utils/API'
-import photo from '../../photos/giftbox.png';
+// import photo from '../../photos/giftbox.png';
 
 class Form extends React.Component {
     state = {

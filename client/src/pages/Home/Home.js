@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React from "react";
 import { Grid } from 'react-bootstrap';
 import "./Home.css";
 import GiftCardContainer from '../../components/GiftCardContainer';

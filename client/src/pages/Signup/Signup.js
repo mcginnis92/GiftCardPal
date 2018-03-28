@@ -1,12 +1,13 @@
-import React, { Component } from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, HelpBlock, InputGroup, Button } from "react-bootstrap";
-import FontAwesome from "react-fontawesome";
+import React from "react";
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from "react-bootstrap";
+import API from '../../utils/API';
 import "./Signup.css";
 
 class Signup extends React.Component {
     state = {
-        email: '',
+        username: '',
         password: '',
+        name: ''
     };
 
     handleInputChange = event => {
@@ -14,23 +15,20 @@ class Signup extends React.Component {
         this.setState({
             [name]: value
         });
-        console.log("state: ", this.state);
     };
     
-    // handleFormSubmit = event => {
-    //     event.preventDefault();
-    //     console.log("form submitted", this.state);
+    handleFormSubmit = event => {
+        event.preventDefault();
+        console.log("form submitted", this.state);
             
-    //     API.saveCard({
-    //         name: this.state.title,
-    //         amount: this.state.amount,
-    //         category: this.state.category
-    //         })
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err));
-
-    //go to HOME page ("/")
-    // };
+        API.saveUser({
+            username: this.state.username,
+            password: this.state.password,
+            name: this.state.name
+            })
+            .then(window.location = '/home')
+            .catch(err => console.log(err))
+    };
     
     render() {
         return (
@@ -40,11 +38,21 @@ class Signup extends React.Component {
                         <h3>Create an Account</h3>
                         {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
                         <FormGroup>
+                            <ControlLabel>Enter your full name.</ControlLabel>
+                            <FormControl 
+                                type="text" 
+                                value={this.state.name} 
+                                name="name" 
+                                placeholder="John Smith" 
+                                onChange={this.handleInputChange} />
+                        </FormGroup>
+
+                        <FormGroup>
                             <ControlLabel>Enter your email address. This will be your username.</ControlLabel>
                             <FormControl 
                                 type="text" 
-                                value={this.state.email} 
-                                name="email" 
+                                value={this.state.username} 
+                                name="username" 
                                 placeholder="YourName@YourEmail.com" 
                                 onChange={this.handleInputChange} />
                         </FormGroup>
@@ -59,7 +67,7 @@ class Signup extends React.Component {
                                     onChange={this.handleInputChange} />
                         </FormGroup>
 
-                        <Button type="submit" block>Submit</Button>
+                        <Button onClick={this.handleFormSubmit} block>Submit</Button>
                     </form>
                 </Col>
             </Row>

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Row, Col } from 'react-bootstrap';
 import "./TopMenu.css";
 
 const TopMenu = props => (

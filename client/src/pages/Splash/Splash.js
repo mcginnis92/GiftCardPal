@@ -1,6 +1,5 @@
-import React, {Component} from "react";
+import React from "react";
 import { Grid, Row, Col, Button } from 'react-bootstrap';
-import FontAwesome from 'react-fontawesome';
 import "./Splash.css";
 
 const Splash = props => (

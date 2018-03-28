@@ -1,6 +1,5 @@
-import React, {Component} from "react";
-import { Grid, Row, Col } from 'react-bootstrap';
-import FontAwesome from 'react-fontawesome';
+import React from "react";
+import { Row, Col } from 'react-bootstrap';
 import "./Footer.css";
 
 const Footer = props => (

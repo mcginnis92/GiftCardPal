@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid } from 'react-bootstrap';
 import './App.css';
 
 //Components
-import TopMenu from './components/TopMenu';
+// import TopMenu from './components/TopMenu';
 import Header from './components/Header';
 import Footer from './components/Footer';
 

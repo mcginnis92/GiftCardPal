@@ -1,5 +1,4 @@
-import React, {Component} from "react";
-import {  Col } from 'react-bootstrap';
+import React from "react";
 import FontAwesome from 'react-fontawesome';
 import "./Icon.css"; 
 
