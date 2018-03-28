@@ -6,7 +6,7 @@ const GiftCardModal = props => (
     <div>
         <Modal.Dialog>
             <Modal.Header>
-                <Modal.Title>{props.name}</Modal.Title>
+                <h3>{props.name}</h3>
             </Modal.Header>
 
             <Modal.Body>

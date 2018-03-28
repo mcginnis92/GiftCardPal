@@ -8,7 +8,9 @@ class GiftCardContainer extends Component {
   state = {
     giftcards: [],
     modal: false,
-    number: ''
+    number: '',
+    gcname: '',
+    pin: ''
   };
 
   componentDidMount = () => {
@@ -30,10 +32,12 @@ class GiftCardContainer extends Component {
 
   };
 
-  toggleModal = (number) => {
+  toggleModal = (number, name, pin) => {
     this.setState({
       modal: !this.state.modal,
-      number: number
+      number: number,
+      name: name,
+      pin: pin
     });
     console.log(number, "gcnum")
   };
@@ -41,8 +45,23 @@ class GiftCardContainer extends Component {
   render() {
     return (
       <div>
-        {this.state.modal && <GiftCardModal toggle={this.toggleModal} number={this.state.number}/>}
-        {this.state.giftcards.map(elem => <GiftCard name={elem.name} amount={elem.amount} category={elem.category} number={elem.number} pin={elem.pin} key={elem._id} toggle={this.toggleModal} id={elem._id}/>)}
+        {this.state.modal && 
+        <GiftCardModal 
+          toggle={this.toggleModal} 
+          number={this.state.number} 
+          name={this.state.name} 
+          pin={this.state.pin}
+        />}
+        {this.state.giftcards.map(elem => 
+        <GiftCard 
+          name={elem.name} 
+          amount={elem.amount} 
+          category={elem.category} 
+          key={elem._id} 
+          number={elem.number}
+          pin={elem.pin}
+          toggle={this.toggleModal} 
+        />)}
       </div>
     );
   }
