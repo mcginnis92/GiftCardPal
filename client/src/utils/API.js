@@ -16,5 +16,12 @@ export default {
   // Saves a giftcard to the database
   saveCard: function(newCard) {
     return axios.post("/api/giftcards", newCard);
-  }
+  },
+  
+  /****************** USER ROUTES **********************/
+
+  // Saves a user to the database
+  saveUser: function(newUser) {
+    return axios.post("/api/users", newUser);
+  },
 };

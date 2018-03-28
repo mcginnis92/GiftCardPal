@@ -24,7 +24,7 @@ class Signup extends React.Component {
         API.saveUser({
             username: this.state.username,
             password: this.state.password,
-            name: this.state.name
+            fullname: this.state.fullname
             })
             .then(window.location = '/home')
             .catch(err => console.log(err))
@@ -41,8 +41,8 @@ class Signup extends React.Component {
                             <ControlLabel>Enter your full name.</ControlLabel>
                             <FormControl 
                                 type="text" 
-                                value={this.state.name} 
-                                name="name" 
+                                value={this.state.fullname} 
+                                name="fullname" 
                                 placeholder="John Smith" 
                                 onChange={this.handleInputChange} />
                         </FormGroup>
