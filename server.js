@@ -25,6 +25,31 @@ mongoose.connect(
   }
 );
 
+// // Add GridFS for photo uploads
+// var conn = mongoose.connection;
+// var path = require('path');
+// var fs = require('fs');
+// var Grid = require('gridfs-stream');
+// Grid.mongo = mongoose.mongo;
+ 
+// conn.once('open', function () {
+//     console.log('open Grid');
+//     var gfs = Grid(conn.db);
+
+//     // streaming to gridfs
+//     // filename to store in mongodb
+//     var writestream = gfs.createWriteStream({
+//       filename: 'favicon.ico'
+//     });
+//     fs.createReadStream('./client/public/favicon.ico').pipe(writestream);
+
+//     writestream.on('close', function (file) {
+//         // do something with `file`
+//         console.log(file.filename + ' Written To DB');
+//     });
+// });
+
+
 // Start the API server
 app.listen(PORT, function() {
   console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);

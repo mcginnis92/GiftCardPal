@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
-import API from '../../utils/API'
-// import photo from '../../photos/giftbox.png';
+import API from '../../utils/API';
+import ImageUpload from '../../components/GiftCard/ImageUpload';
 
 class Form extends React.Component {
     state = {
@@ -9,19 +9,8 @@ class Form extends React.Component {
         amount: '',
         category: '',
         number: '',
-        pin: '',
-        image: ''
+        pin: ''
     };
-
-    loadCard = () => {
-        console.log("this.props.match.params.id", this.props.match.params.id);
-        API.getCard(this.props.match.params.id)
-          .then(res =>
-            this.setState({ name: res.data.name, amount: res.data.amount, category: res.data.category, image: res.data.image }),
-            document.getElementById("image").HTML('<img src=' + this.state.image + 'alt="Gift Card Image"')
-          )
-          .catch(err => console.log(err));
-      };
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -29,27 +18,17 @@ class Form extends React.Component {
             [name]: value
         });
     };
-
-    handleImageChange = event => {
-        let image = event.target.files[0];
-        let form = new FormData();
-            form.append('image', image);
-            this.setState({
-                image: form,
-            });
-    }
     
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log("form submitted", this.state);
             
         API.saveCard({
             name: this.state.name,
             amount: this.state.amount,
             category: this.state.category,
             number: this.state.number,
-            pin: this.state.pin
-            // image: this.state.image
+            pin: this.state.pin,
+            image: this.state.image
             })
             .then(res => console.log(res))
             .catch(err => console.log(err));
@@ -122,10 +101,12 @@ class Form extends React.Component {
                                     onChange={this.handleInputChange} />
                         </FormGroup>
 
+                        <ImageUpload />
+
                         {/* <ControlLabel>Upload an image your gift card. Make sure it contains the full gift card number and PIN.</ControlLabel> 
-                        <input type="file" id="inputFile" accept="image/*" onChange={this.handleImageChange} /> */}
+                        <input name="file" accept="image/*" type="file" onChange={this.handleFile} />
                         <br />
-                        
+                         */}
                         <Button onClick={this.handleFormSubmit} block>Submit</Button>
                     </form>
 

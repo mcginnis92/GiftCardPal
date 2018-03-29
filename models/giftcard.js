@@ -7,7 +7,7 @@ const giftCardSchema = new Schema({
   category: { type: String, required: true },
   number: { type: Number, required: true },
   pin: { type: Number, required: false },
-  // image: { data: Buffer, contentType: String },
+  image: { data: Buffer, contentType: String },
   date: { type: Date, default: Date.now },
   owner: [
     {
