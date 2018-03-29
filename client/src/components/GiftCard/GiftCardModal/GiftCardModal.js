@@ -55,21 +55,25 @@ class GiftCardModal extends React.Component {
 
     render() {
         console.log(this.state.image, "this.state.image");
+        console.log(typeof(this.state.image));
 
+
+        //Option 1
         var arrayBufferView = new Uint8Array(this.state.image.data);
-        var blob = new Blob( [ arrayBufferView ], { type: "image/jpeg" } );
+        var blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
         var urlCreator = window.URL || window.webkitURL;
         var imageUrl = urlCreator.createObjectURL( blob );
+        //method A: drop the url into the image src
+        // var img = document.querySelector( "#photo" );
+        // img.src = imageUrl;
+
+        //method B: dynamically create
         console.log(imageUrl, "image url");
+        const imagePreview = (<img src={imageUrl} alt="gift card"/>);
+        //---------------------------------------------------------------//
 
-        const imagePreview = (<img src={imageUrl} alt="gift card image"/>);
-
-        // var dataView = new DataView(this.response);
-        // var decoder = new TextDecoder(encoding);
-        // var decodedString = decoder.decode(dataView);
-
+        // Option 2
         // const blob = new Blob([this.state.image.data], {type: "image.png"});
-        // const imagePreview = (<img src={blob} alt="preview"/>);
 
         return (
             <div>
@@ -82,7 +86,11 @@ class GiftCardModal extends React.Component {
                         <p>Gift Card Number: {this.state.number}</p>
                         <p>PIN: {this.state.pin}</p>
 
-                        <div className="imgPreview">{imagePreview}</div>
+                        {/* //METHOD 1 */}
+                        <img id="photo" src={imagePreview} alt="preview"/>
+
+                        {/* //METHOD 2 */}
+                        {/* <div className="imgPreview">{blob}</div> */}
 
                         <FormGroup>
                             <ControlLabel>How much did you spend?</ControlLabel>
