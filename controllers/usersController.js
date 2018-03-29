@@ -1,4 +1,7 @@
 const db = require("../models"); 
+// var passport = require("../config/passport");
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 module.exports = {
   //FIND A GIVEN USER'S GIFTCARDS
@@ -9,13 +12,26 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err =>  res.status(422).json(err));
   },
+
+  
   //CREATE A NEW USER
   create: function(req, res) {
     console.log('you hit the create user route');
-    db.User
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+    console.log(req.body.password, "req body password")
+
+    var myPlaintextPassword = req.body.password;
+
+    bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+      // Store hash in your password DB.
+      db.User
+        .create({
+          username: req.body.username,
+          fullname: req.body.fullname,
+          password: hash
+        })
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    });
   },
 
 

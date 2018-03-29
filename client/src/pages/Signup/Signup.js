@@ -21,7 +21,7 @@ class Signup extends React.Component {
         event.preventDefault();
         console.log("form submitted", this.state);
             
-        API.signUp({
+        API.saveUser({
             username: this.state.username,
             password: this.state.password,
             fullname: this.state.fullname
