@@ -4,6 +4,10 @@ var Schema = mongoose.Schema;
     // SALT_WORK_FACTOR = 10;
 
     const UserSchema = new Schema({
+        fullname: {
+            type: String,
+            required: true
+        },
         username: { 
             type: String, 
             match: [/.+\@.+\..+/, "Please enter a valid e-mail address"], 
