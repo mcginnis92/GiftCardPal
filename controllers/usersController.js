@@ -17,4 +17,29 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
+
+  //CREATE NEW USER AFTER CHECKING FOR DUPLICATES IN DB
+  signUp: function (req, res) {
+    console.log('user signup was hit')
+
+    db.User
+    .findOne({username: req.body.username})
+    .then(dbModel => res.json(dbModel))
+
+    .then(function(err, res){
+      if (err){
+          console.log('user already exists with that name');
+          return res.status(403).json({error: 'Email is already in use!'})
+        }
+      else {
+        db.User
+        .create(req.body)
+        console.log('user created')
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err))
+      }
+    })
+    .catch(err => res.status(422).json(err));
+  }
 };
