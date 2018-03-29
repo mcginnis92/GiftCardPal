@@ -7,8 +7,8 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 //PASSPORT
-// var session = require("express-session");
-// var passport = require("./config/passport");
+var session = require("express-session");
+var passport = require("./config/passport");
 
 // Configure body parser for AJAX requests
 app.use(bodyParser.urlencoded({ extended: false }));

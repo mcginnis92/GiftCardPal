@@ -31,8 +31,8 @@ export default {
   getUserGC: function(username){
     return axios.get("/api/users/" + username.username);
   },
-  // Saves a user to the database
-  // signUp: function(newUser) {
-  //   return axios.post("/api/users", newUser);
-  // },
+  //Checks user login
+  loginUser: function(userData){
+    return axios.post("api/users/login", userData)
+  }
 };

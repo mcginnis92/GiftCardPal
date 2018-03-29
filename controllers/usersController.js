@@ -1,61 +1,76 @@
-const db = require("../models"); 
-// var passport = require("../config/passport");
-var bcrypt = require('bcrypt');
+const db = require("../models");
+const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
 module.exports = {
   //FIND A GIVEN USER'S GIFTCARDS
   findOne: function(req, res) {
-    db.User
-      .findOne(req.params)
+    db.User.findOne(req.params)
       .populate("giftcards")
       .then(dbModel => res.json(dbModel))
-      .catch(err =>  res.status(422).json(err));
+      .catch(err => res.status(422).json(err));
   },
 
-  
   //CREATE A NEW USER
   create: function(req, res) {
-    console.log('you hit the create user route');
-    console.log(req.body.password, "req body password")
+    console.log("you hit the create user route");
 
     var myPlaintextPassword = req.body.password;
 
     bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
       // Store hash in your password DB.
-      db.User
-        .create({
-          username: req.body.username,
-          fullname: req.body.fullname,
-          password: hash
-        })
+      db.User.create({
+        username: req.body.username,
+        fullname: req.body.fullname,
+        password: hash
+      })
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
     });
   },
 
+  //LOGIN A USER
+  login: function(req, res){
+    console.log("you hit the login user route");
+    console.log("req.body", req.body)
 
-  //CREATE NEW USER AFTER CHECKING FOR DUPLICATES IN DB
-  signUp: function (req, res) {
-    console.log('user signup was hit')
+    var myPlaintextPassword = req.body.password;
+    
+    // bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
+      db.User.findOne({
+        username: req.body.username,
+        password: req.body.password
+      })
+        .then(dbModel => res.send(dbModel))
+        .catch(err => console.log(err.response));
+    // })
+  },
 
-    db.User
-    .findOne({username: req.body.username})
-    .then(dbModel => res.json(dbModel))
 
-    .then(function(err, res){
-      if (err){
-          console.log('user already exists with that name');
-          return res.status(403).json({error: 'Email is already in use!'})
-        }
-      else {
-        db.User
-        .create(req.body)
-        console.log('user created')
-        .then(dbModel => res.json(dbModel))
-        .catch(err => res.status(422).json(err))
-      }
-    })
-    .catch(err => res.status(422).json(err));
-  }
+
+
+  // login: function(req, res) {
+  //   var username = req.body.username;
+  //   var password = req.body.password;
+
+  //   passport.use(
+  //     new LocalStrategy(function(username, password, done) {
+  //       User.findOne({ username: username }, function(err, user) {
+  //         if (err) {
+  //           return done(err);
+  //         }
+  //         if (!user) {
+  //           return done(null, false, { message: "Incorrect username." });
+  //         }
+
+  //         if (!user.validPassword(password)) {
+  //           return done(null, false, { message: "Incorrect password." });
+  //         }
+  //         return done(null, false, { message: "Incorrect password." });
+  //       });
+  //     })
+  //   );
+  // }
 };
