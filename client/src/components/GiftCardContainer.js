@@ -15,15 +15,16 @@ class GiftCardContainer extends Component {
     id: ''
   };
 
-  componentDidMount = () => {
-    API.getUserGC({
-      username: 'moose@moose.com'
-    })
-    // .then(res => console.log(res.data.giftcards))
-    .then(res => this.setState({giftcards : res.data.giftcards}))
-    .catch(err => console.log(err));
+  //BRING THIS BACK ONCE LOGIN IS WORKING
+  // componentDidMount = () => {
+  //   API.getUserGC({
+  //     username: 'moose@moose.com'
+  //   })
+  //   // .then(res => console.log(res.data.giftcards))
+  //   .then(res => this.setState({giftcards : res.data.giftcards}))
+  //   .catch(err => console.log(err));
 
-  };
+  // };
 
   toggleModal = (number, name, pin, amount, id) => {
     this.setState({

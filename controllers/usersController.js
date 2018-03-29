@@ -11,6 +11,7 @@ module.exports = {
   },
   //CREATE A NEW USER
   create: function(req, res) {
+    console.log('you hit the create user route');
     db.User
       .create(req.body)
       .then(dbModel => res.json(dbModel))

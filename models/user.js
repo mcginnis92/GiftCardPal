@@ -1,6 +1,6 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
-    // bcrypt = require('bcrypt'),
+const bcrypt = require('bcrypt');
     // SALT_WORK_FACTOR = 10;
 
     const UserSchema = new Schema({
@@ -31,6 +31,14 @@ var Schema = mongoose.Schema;
             }
         ]
     });
+
+    UserSchema.methods.generateHash = function(password){
+        return bcrypt.hashSync(password, bcrypt.genSaltSync(9));
+    }
+    
+    UserSchema.methods.validPassword = function(password){
+        return bcrypt.compareSync(password, this.local.password);
+    }
     
     const User = mongoose.model("User", UserSchema);
     module.exports = User;

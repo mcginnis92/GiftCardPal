@@ -7,7 +7,7 @@ class Signup extends React.Component {
     state = {
         username: '',
         password: '',
-        name: ''
+        fullname: ''
     };
 
     handleInputChange = event => {
