@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
 import API from '../../utils/API';
-import ImageUpload from '../../components/GiftCard/ImageUpload';
+import './GiftCardForm.css'
 
 class Form extends React.Component {
     state = {
@@ -9,36 +9,63 @@ class Form extends React.Component {
         amount: '',
         category: '',
         number: '',
-        pin: ''
+        pin: '',
+        file: '',
+        imagePreviewUrl: ''
     };
 
-    handleInputChange = event => {
-        const { name, value } = event.target;
+    handleInputChange = e => {
+        const { name, value } = e.target;
         this.setState({
             [name]: value
         });
     };
     
+    getPhoto = e => {
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        console.log("file: ", file);
+
+        reader.onloadend = () => {
+          this.setState({
+            file: file,
+            imagePreviewUrl: reader.result
+          });
+        }
+        reader.readAsDataURL(file);
+    }
+    
     handleFormSubmit = event => {
         event.preventDefault();
-            
+
         API.saveCard({
             name: this.state.name,
             amount: this.state.amount,
             category: this.state.category,
             number: this.state.number,
             pin: this.state.pin,
-            image: this.state.image
+            image: this.state.imagePreviewUrl
             })
             .then(res => console.log(res))
+            // .then(window.location = '/home')
             .catch(err => console.log(err));
     };
     
     render() {
+
+        let {imagePreviewUrl} = this.state;
+        let imagePreview = null;
+        
+        if (imagePreviewUrl) {
+          imagePreview = (<img src={imagePreviewUrl} alt="preview"/>);
+        } else {
+          imagePreview = (<div className="previewText">Your image will be previewed here.</div>);
+        }
+
         return (
             <Row>
                 <Col xs={12}>
-                    <form>
+                    <form action='.' encType="multipart/form-data">
                         <h3>Add a Gift Card</h3>
                         {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
                         <FormGroup>
@@ -101,16 +128,18 @@ class Form extends React.Component {
                                     onChange={this.handleInputChange} />
                         </FormGroup>
 
-                        <ImageUpload />
+                        <ControlLabel>Upload an image your gift card. Make sure it contains the full gift card number and PIN.</ControlLabel> 
+                        <div>
+                            <input type='file' onChange={this.getPhoto}/>
+                        
+                            <div className="imgPreview">
+                                {imagePreview}
+                            </div>
+                        </div>
 
-                        {/* <ControlLabel>Upload an image your gift card. Make sure it contains the full gift card number and PIN.</ControlLabel> 
-                        <input name="file" accept="image/*" type="file" onChange={this.handleFile} />
                         <br />
-                         */}
                         <Button onClick={this.handleFormSubmit} block>Submit</Button>
                     </form>
-
-                    <Row id="image" />
 
                 </Col>
             </Row>

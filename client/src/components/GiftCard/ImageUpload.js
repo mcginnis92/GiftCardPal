@@ -40,7 +40,7 @@ class ImageUpload extends React.Component {
             <div>
                 <form action='.' enctype="multipart/form-data">
                     <input type='file' onChange={this.getPhoto}/>
-                    <button onClick={this.pressButton}> Get it </button>
+                    {/* <Button onClick={this.pressButton}> Get it </Button> */}
                 </form>
             
                 <div className="imgPreview">
