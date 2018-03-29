@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from "react-bootstrap";
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from "react-bootstrap";
 import API from '../../utils/API';
 import "./Signup.css";
 
@@ -16,7 +16,7 @@ class Signup extends React.Component {
             [name]: value
         });
     };
-    
+
     handleFormSubmit = event => {
         event.preventDefault();
         console.log("form submitted", this.state);

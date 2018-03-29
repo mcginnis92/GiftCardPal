@@ -36,7 +36,7 @@ class Login extends React.Component {
             <Row>
                 <Col xs={12}>
                     <form>
-                        <h3>Create an Account</h3>
+                        <h3>Welcome Back! Please Log In.</h3>
                         {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
                         <FormGroup>
                             <ControlLabel>Enter your username.</ControlLabel>
