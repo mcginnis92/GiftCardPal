@@ -21,10 +21,12 @@ module.exports = {
 
   //CREATE NEW USER AFTER CHECKING FOR DUPLICATES IN DB
   signUp: function (req, res) {
-    console.log('user controller signup was hit')
+    console.log('user signup was hit')
 
     db.User
     .findOne({username: req.body.username})
+    .then(dbModel => res.json(dbModel))
+
     .then(function(err, res){
       if (err){
           console.log('user already exists with that name');
@@ -40,6 +42,4 @@ module.exports = {
     })
     .catch(err => res.status(422).json(err));
   }
-  
-
 };
