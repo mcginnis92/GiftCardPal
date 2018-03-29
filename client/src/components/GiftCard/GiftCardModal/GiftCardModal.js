@@ -12,8 +12,21 @@ class GiftCardModal extends React.Component {
         number: this.props.number,
         pin: this.props.pin,
         amount: this.props.amount,
+        image: this.props.image,
         spent: ''
     };
+
+    // componentDidMount = () => {
+    //     let imagePreview = null;
+
+    //     var arrayBufferView = new Uint8Array(this.state.image);
+    //     var blob = new Blob( [ arrayBufferView ], { type: "image/jpeg" } );
+    //     var urlCreator = window.URL || window.webkitURL;
+    //     var imageUrl = urlCreator.createObjectURL( blob );
+    //     console.log(imageUrl, "image url");
+
+    //     imagePreview = (<img src={imageUrl} alt="gift card image"/>);
+    // }
 
     handleInputChange = event => {
         const { name, value } = event.target;
@@ -41,6 +54,23 @@ class GiftCardModal extends React.Component {
     }
 
     render() {
+        console.log(this.state.image, "this.state.image");
+
+        var arrayBufferView = new Uint8Array(this.state.image.data);
+        var blob = new Blob( [ arrayBufferView ], { type: "image/jpeg" } );
+        var urlCreator = window.URL || window.webkitURL;
+        var imageUrl = urlCreator.createObjectURL( blob );
+        console.log(imageUrl, "image url");
+
+        const imagePreview = (<img src={imageUrl} alt="gift card image"/>);
+
+        // var dataView = new DataView(this.response);
+        // var decoder = new TextDecoder(encoding);
+        // var decodedString = decoder.decode(dataView);
+
+        // const blob = new Blob([this.state.image.data], {type: "image.png"});
+        // const imagePreview = (<img src={blob} alt="preview"/>);
+
         return (
             <div>
                 <Modal.Dialog>
@@ -51,6 +81,8 @@ class GiftCardModal extends React.Component {
                     <Modal.Body>
                         <p>Gift Card Number: {this.state.number}</p>
                         <p>PIN: {this.state.pin}</p>
+
+                        <div className="imgPreview">{imagePreview}</div>
 
                         <FormGroup>
                             <ControlLabel>How much did you spend?</ControlLabel>

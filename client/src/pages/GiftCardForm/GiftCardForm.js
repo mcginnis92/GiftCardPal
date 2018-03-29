@@ -46,8 +46,8 @@ class Form extends React.Component {
             pin: this.state.pin,
             image: this.state.imagePreviewUrl
             })
+            .then(window.location = '/home')
             .then(res => console.log(res))
-            // .then(window.location = '/home')
             .catch(err => console.log(err));
     };
     
