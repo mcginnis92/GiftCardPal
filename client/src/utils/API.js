@@ -1,10 +1,10 @@
 import axios from "axios";
 
 export default {
-  // Gets all gift cards
-  getCards: function() {
-    return axios.get("/api/giftcards");
-  },
+  // // Gets all gift cards
+  // getCards: function() {
+  //   return axios.get("/api/giftcards");
+  // },
   // Gets the gift card with the given name
   getCard: function(id) {
     return axios.get("/api/giftcards/" + id);
@@ -24,15 +24,15 @@ export default {
   /****************** USER ROUTES **********************/
 
   // Saves a user to the database
-  // saveUser: function(newUser) {
-  //   return axios.post("/api/users", newUser);
-  // },
-  //Finds a user's gift cards
-  getUserGC: function(username){
-    return axios.get("/api/users/" + username.username);
-  },
-  // Saves a user to the database
-  signUp: function(newUser) {
+  saveUser: function(newUser) {
     return axios.post("/api/users", newUser);
   },
+  //Finds a user's gift cards
+  getUserGC: function(user){
+    return axios.get("/api/users/" + user._id);
+  },
+  //Checks user login
+  loginUser: function(userData){
+    return axios.post("api/users/login", userData)
+  }
 };

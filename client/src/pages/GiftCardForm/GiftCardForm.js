@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
-import API from '../../utils/API'
-// import photo from '../../photos/giftbox.png';
+import API from '../../utils/API';
+import './GiftCardForm.css'
 
 class Form extends React.Component {
     state = {
@@ -10,56 +10,64 @@ class Form extends React.Component {
         category: '',
         number: '',
         pin: '',
-        image: ''
+        file: '',
+        imagePreviewUrl: '',
+        loggedIn: true,
     };
 
-    loadCard = () => {
-        console.log("this.props.match.params.id", this.props.match.params.id);
-        API.getCard(this.props.match.params.id)
-          .then(res =>
-            this.setState({ name: res.data.name, amount: res.data.amount, category: res.data.category, image: res.data.image }),
-            document.getElementById("image").HTML('<img src=' + this.state.image + 'alt="Gift Card Image"')
-          )
-          .catch(err => console.log(err));
-      };
-
-    handleInputChange = event => {
-        const { name, value } = event.target;
+    handleInputChange = e => {
+        const { name, value } = e.target;
         this.setState({
             [name]: value
         });
     };
+    
+    getPhoto = e => {
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        console.log("file: ", file);
 
-    handleImageChange = event => {
-        let image = event.target.files[0];
-        let form = new FormData();
-            form.append('image', image);
-            this.setState({
-                image: form,
-            });
+        reader.onloadend = () => {
+          this.setState({
+            file: file,
+            imagePreviewUrl: reader.result
+          });
+        }
+        reader.readAsDataURL(file);
     }
     
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log("form submitted", this.state);
-            
+
         API.saveCard({
+            userId: "5abe59322b750a5550f0e861", //update this once we can get the props.userid from login
             name: this.state.name,
             amount: this.state.amount,
             category: this.state.category,
             number: this.state.number,
-            pin: this.state.pin
-            // image: this.state.image
+            pin: this.state.pin,
+            image: this.state.imagePreviewUrl
             })
+            // .then(window.location = '/home')
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };
     
     render() {
+
+        let {imagePreviewUrl} = this.state;
+        let imagePreview = null;
+        
+        if (imagePreviewUrl) {
+          imagePreview = (<img src={imagePreviewUrl} alt="preview"/>);
+        } else {
+          imagePreview = (<div className="previewText">Your image will be previewed here.</div>);
+        }
+
         return (
             <Row>
                 <Col xs={12}>
-                    <form>
+                    <form action='.' encType="multipart/form-data">
                         <h3>Add a Gift Card</h3>
                         {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
                         <FormGroup>
@@ -122,14 +130,18 @@ class Form extends React.Component {
                                     onChange={this.handleInputChange} />
                         </FormGroup>
 
-                        {/* <ControlLabel>Upload an image your gift card. Make sure it contains the full gift card number and PIN.</ControlLabel> 
-                        <input type="file" id="inputFile" accept="image/*" onChange={this.handleImageChange} /> */}
-                        <br />
+                        <ControlLabel>Upload an image your gift card. Make sure it contains the full gift card number and PIN.</ControlLabel> 
+                        <div>
+                            <input type='file' onChange={this.getPhoto}/>
                         
+                            <div className="imgPreview">
+                                {imagePreview}
+                            </div>
+                        </div>
+
+                        <br />
                         <Button onClick={this.handleFormSubmit} block>Submit</Button>
                     </form>
-
-                    <Row id="image" />
 
                 </Col>
             </Row>

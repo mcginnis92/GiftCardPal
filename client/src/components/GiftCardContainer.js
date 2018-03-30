@@ -12,19 +12,19 @@ class GiftCardContainer extends Component {
     name: '',
     pin: '',
     amount: '',
-    id: ''
+    id: '',
+    image: ''
   };
 
-  //BRING THIS BACK ONCE LOGIN IS WORKING
-  // componentDidMount = () => {
-  //   API.getUserGC({
-  //     username: 'moose@moose.com'
-  //   })
-  //   // .then(res => console.log(res.data.giftcards))
-  //   .then(res => this.setState({giftcards : res.data.giftcards}))
-  //   .catch(err => console.log(err));
+  componentDidMount = () => {
+    API.getUserGC({
+      _id: '5abe59322b750a5550f0e861' //change this to the id that comes in from the users login
+    })
+    // .then(res => console.log(res.data.giftcards))
+    .then(res => this.setState({giftcards : res.data.giftcards}))
+    .catch(err => console.log(err));
 
-  // };
+  };
 
   toggleModal = (number, name, pin, amount, id) => {
     this.setState({
@@ -39,6 +39,9 @@ class GiftCardContainer extends Component {
   };
 
   render() {
+    console.log(this.state.giftcards, 'this.state.giftcards');
+
+
     return (
       <div>
         {this.state.modal && 
@@ -49,6 +52,7 @@ class GiftCardContainer extends Component {
           pin={this.state.pin}
           amount={this.state.amount}
           id={this.state.id}
+          image={this.state.image}
         />}
         {this.state.giftcards.map(elem => 
         <GiftCard 
@@ -60,6 +64,7 @@ class GiftCardContainer extends Component {
           pin={elem.pin}
           toggle={this.toggleModal} 
           id={elem._id}
+          image={elem.image}
         />)}
       </div>
     );

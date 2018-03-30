@@ -2,13 +2,15 @@ const router = require("express").Router();
 const usersController = require("../../controllers/usersController");
 
 // Matches with "/api/users"
-// router.route("/")
-//   .post(usersController.create);
-  router.route("/")
-  .post(usersController.signUp);
+router.route("/")
+  .post(usersController.create);
 
-//Matches with "api/users/:username"
-router.route("/:username")
+// Matches with "/api/users/login"
+router.route("/login")
+  .post(usersController.login);
+
+//Matches with "api/users/:_id"
+router.route("/:_id")
   .get(usersController.findOne)
 
 module.exports = router;

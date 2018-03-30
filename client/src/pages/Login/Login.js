@@ -1,10 +1,11 @@
 import React from "react";
 import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from "react-bootstrap";
 import "./Login.css";
+import API from '../../utils/API';
 
 class Login extends React.Component {
     state = {
-        email: '',
+        username: '',
         password: '',
     };
 
@@ -13,23 +14,19 @@ class Login extends React.Component {
         this.setState({
             [name]: value
         });
-        console.log("state: ", this.state);
     };
     
-    // handleFormSubmit = event => {
-    //     event.preventDefault();
-    //     console.log("form submitted", this.state);
+    handleFormSubmit = event => {
+        event.preventDefault();
+        console.log("form submitted", this.state);
             
-    //     API.saveCard({
-    //         name: this.state.title,
-    //         amount: this.state.amount,
-    //         category: this.state.category
-    //         })
-    //         .then(res => console.log(res))
-    //         .catch(err => console.log(err));
-
-    //go to HOME page ("/")
-    // };
+        API.loginUser({
+            username: this.state.username,
+            password: this.state.password
+            })
+            .then(res => console.log(res.data.fullname))
+            .catch(err => console.log(err));
+    };
     
     render() {
         return (
@@ -42,8 +39,8 @@ class Login extends React.Component {
                             <ControlLabel>Enter your username.</ControlLabel>
                             <FormControl 
                                 type="text" 
-                                value={this.state.email} 
-                                name="email" 
+                                value={this.state.username} 
+                                name="username" 
                                 placeholder="YourName@YourEmail.com" 
                                 onChange={this.handleInputChange} />
                         </FormGroup>
@@ -58,7 +55,7 @@ class Login extends React.Component {
                                     onChange={this.handleInputChange} />
                         </FormGroup>
 
-                        <Button type="submit" block>Submit</Button>
+                        <Button type="submit" block onClick={this.handleFormSubmit}>Submit</Button>
                     </form>
                 </Col>
             </Row>
