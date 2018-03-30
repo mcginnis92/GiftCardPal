@@ -30,11 +30,12 @@ module.exports = {
     console.log(req.body._id)
     db.GiftCard
       .create(req.body)
-      .then(function(dbCard) {
+      .then(function(newCard) {
         return db.User.findOneAndUpdate(
-          {_id: req.body._id },
-          { $push: { giftcards: dbCard._id } }, 
-          { new: true });
+          {_id: req.body.userId },
+          { $push: { giftcards: newCard._id } }, 
+          { new: true }
+        );
       })
       .then(function(dbUser) {
         res.json(dbUser);

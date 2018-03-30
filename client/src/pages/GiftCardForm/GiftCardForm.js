@@ -40,7 +40,7 @@ class Form extends React.Component {
         event.preventDefault();
 
         API.saveCard({
-            _id: "5abe59322b750a5550f0e861", //update this once we can get the props.userid from login
+            userId: "5abe59322b750a5550f0e861", //update this once we can get the props.userid from login
             name: this.state.name,
             amount: this.state.amount,
             category: this.state.category,
@@ -48,7 +48,7 @@ class Form extends React.Component {
             pin: this.state.pin,
             image: this.state.imagePreviewUrl
             })
-            .then(window.location = '/home')
+            // .then(window.location = '/home')
             .then(res => console.log(res))
             .catch(err => console.log(err));
     };
