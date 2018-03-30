@@ -38,15 +38,16 @@ module.exports = {
     console.log("you hit the login user route");
     console.log("req.body", req.body)
 
-    var myPlaintextPassword = req.body.password;
+    // var myPlaintextPassword = req.body.password;
     
     // bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
       db.User.findOne({
         username: req.body.username,
         password: req.body.password
       })
-        .then(dbModel => res.send(dbModel))
-        .catch(err => console.log(err.response));
+        .then(userData => res.send(userData))
+        .catch(err => res.status(422).json(err));
+        // .catch(err => console.log(err.response));
     // })
   },
 

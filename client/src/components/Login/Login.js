@@ -1,14 +1,17 @@
 import React from "react";
 import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import "./Login.css";
+import Home from '../../pages/Home';
 import API from '../../utils/API';
 
 class Login extends React.Component {
     state = {
         username: '',
         password: '',
+        isLoggedIn: false
     };
-
+   
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -24,12 +27,18 @@ class Login extends React.Component {
             username: this.state.username,
             password: this.state.password
             })
-            .then(res => console.log(res.data.fullname))
+            .then(res => console.log(res))
+                //add switch statement 
+                //if res.data._id - set isLoggedIn : true
+                //if login was incorrect show an alert if the login information is incorrect
             .catch(err => console.log(err));
     };
     
     render() {
-        return (
+        // return (
+        return this.state.isLoggedIn ?
+            <Home />
+            : 
             <Row>
                 <Col xs={12}>
                     <form>
@@ -59,7 +68,7 @@ class Login extends React.Component {
                     </form>
                 </Col>
             </Row>
-        );
+        // )
     }
 }
 
