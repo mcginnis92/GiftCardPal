@@ -11,7 +11,8 @@ class Form extends React.Component {
         number: '',
         pin: '',
         file: '',
-        imagePreviewUrl: ''
+        imagePreviewUrl: '',
+        loggedIn: true,
     };
 
     handleInputChange = e => {
@@ -39,6 +40,7 @@ class Form extends React.Component {
         event.preventDefault();
 
         API.saveCard({
+            _id: "5abe59322b750a5550f0e861", //update this once we can get the props.userid from login
             name: this.state.name,
             amount: this.state.amount,
             category: this.state.category,

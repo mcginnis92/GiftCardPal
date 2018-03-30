@@ -9,13 +9,13 @@ const giftCardSchema = new Schema({
   pin: { type: Number, required: false },
   image: { type: Buffer},
   date: { type: Date, default: Date.now },
-  owner: [
-    {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-    required: true
-    }
-  ]
+  // owner: [
+  //   {
+  //   type: Schema.Types.ObjectId,
+  //   ref: "User",
+  //   required: true
+  //   }
+  // ]
 });
 
 const GiftCard = mongoose.model("giftcard", giftCardSchema);

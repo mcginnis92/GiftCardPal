@@ -20,11 +20,28 @@ module.exports = {
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  create: function(req, res) {
+  // create: function(req, res) {
+  //   db.GiftCard
+  //     .create(req.body)
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err));
+  // },
+  create: function(req, res){
+    console.log(req.body._id)
     db.GiftCard
       .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
+      .then(function(dbCard) {
+        return db.User.findOneAndUpdate(
+          {_id: req.body._id },
+          { $push: { giftcards: dbCard._id } }, 
+          { new: true });
+      })
+      .then(function(dbUser) {
+        res.json(dbUser);
+      })
+      .catch(function(err) {
+        res.json(err);
+      });
   },
   update: function(req, res) {
     db.GiftCard
