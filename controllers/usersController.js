@@ -7,6 +7,8 @@ const LocalStrategy = require("passport-local").Strategy;
 module.exports = {
   //FIND A GIVEN USER'S GIFTCARDS
   findOne: function(req, res) {
+    console.log("req params", req.params)
+
     db.User.findOne(req.params)
       .populate("giftcards")
       .then(dbModel => res.json(dbModel))

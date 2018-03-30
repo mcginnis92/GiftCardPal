@@ -9,8 +9,8 @@ router.route("/")
 router.route("/login")
   .post(usersController.login);
 
-//Matches with "api/users/:username"
-router.route("/:username")
+//Matches with "api/users/:_id"
+router.route("/:_id")
   .get(usersController.findOne)
 
 module.exports = router;
