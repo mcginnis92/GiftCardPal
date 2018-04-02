@@ -4,7 +4,7 @@ import "./Home.css";
 import GiftCardContainer from '../../components/GiftCardContainer';
 import New from '../../components/New';
 import TopMenu from '../../components/TopMenu';
-
+ 
 class Home extends React.Component {
     state = {
         name: this.props.name,
@@ -18,7 +18,7 @@ class Home extends React.Component {
                 <TopMenu name={this.state.name}/>
                 {this.props.userID}, {this.state.userID}
                 <GiftCardContainer _id={this.state.userID}/>
-                <New/>
+                <New _id={this.state.userID}/>
             </Grid> 
         )
     }

@@ -3,7 +3,7 @@ import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button } fr
 import API from '../../utils/API';
 import './GiftCardForm.css'
 
-class Form extends React.Component {
+class GiftCardForm extends React.Component {
     state = {
         name: '',
         amount: '',
@@ -12,7 +12,7 @@ class Form extends React.Component {
         pin: '',
         file: '',
         imagePreviewUrl: '',
-        loggedIn: true,
+        _id: this.props._id
     };
 
     handleInputChange = e => {
@@ -48,8 +48,8 @@ class Form extends React.Component {
             pin: this.state.pin,
             image: this.state.imagePreviewUrl
             })
-            // .then(window.location = '/home')
-            .then(res => console.log(res))
+            .then(this.props.toggle(false))
+            // .then(res => console.log(res))
             .catch(err => console.log(err));
     };
     
@@ -63,6 +63,8 @@ class Form extends React.Component {
         } else {
           imagePreview = (<div className="previewText">Your image will be previewed here.</div>);
         }
+
+        console.log("Current ID", this.state._id)
 
         return (
             <Row>
@@ -149,4 +151,4 @@ class Form extends React.Component {
     }
 }
 
-export default Form;
+export default GiftCardForm;
