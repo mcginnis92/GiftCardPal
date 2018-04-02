@@ -48,7 +48,6 @@ class GiftCardContainer extends Component {
   };
 
   render() {
-    console.log(this.state.giftcards, 'this.state.giftcards');
 
     return (
       <div>

@@ -1,5 +1,7 @@
 import React from "react";
 import { Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
+import Home from '../../pages/Home';
 import API from '../../utils/API';
 import "./Signup.css";
 
@@ -7,7 +9,9 @@ class Signup extends React.Component {
     state = {
         username: '',
         password: '',
-        fullname: ''
+        fullname: '',
+        _id: '',
+        isLoggedIn: false
     };
 
     handleInputChange = event => {
@@ -26,13 +30,21 @@ class Signup extends React.Component {
             password: this.state.password,
             fullname: this.state.fullname
             })
-            .then(res => console.log(res))
+            .then(res => this.setState({isLoggedIn : true, fullname: res.data.fullname, _id: res.data._id}))
+            // .then(res => console.log(res.data))
             .catch(err => console.log(err))
     };
     
     render() {
-        return (
+
+        console.log(this.state.isLoggedIn)
+
+        return this.state.isLoggedIn ?
+            <Home isLoggedIn={this.state.isLoggedIn} name={this.state.fullname} userID={this.state._id}/> 
+        :
             <Row>
+                
+               
                 <Col xs={12}>
                     <form>
                         <h3>Create an Account</h3>
@@ -71,7 +83,6 @@ class Signup extends React.Component {
                     </form>
                 </Col>
             </Row>
-        );
     }
 }
 

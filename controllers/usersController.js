@@ -7,7 +7,6 @@ const LocalStrategy = require("passport-local").Strategy;
 module.exports = {
   //FIND A GIVEN USER'S GIFTCARDS
   findOne: function(req, res) {
-    console.log("req params", req.params)
 
     db.User.findOne(req.params)
       .populate("giftcards")
@@ -17,7 +16,6 @@ module.exports = {
 
   //CREATE A NEW USER
   create: function(req, res) {
-    console.log("you hit the create user route");
 
     var myPlaintextPassword = req.body.password;
 
