@@ -24,7 +24,7 @@ class App extends Component {
           <Grid fluid>
               <Header/>
                 <Route exact path="/" component={Splash} />
-                <Route exact path="/login" component={Login} />
+                <Route exact path="/home" component={Login} />
                 <Route exact path="/signup" component={Signup} />
                 {/* <Route exact path="/home" component={Home} /> */}
                 {/* <Route path="/giftcard" component={GiftCardForm} /> */}

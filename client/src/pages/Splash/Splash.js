@@ -17,7 +17,7 @@ const Splash = props => (
         <br />
         <Row>
             <Col xs={12}>
-                <Button bsSize="large" block id="green" href="/login">Sign In </Button> 
+                <Button bsSize="large" block id="green" href="/home">Sign In </Button> 
                 <br/>
                 <Button bsSize="large" block id="blue" href="/signup">Create an Account </Button> 
             </Col>  

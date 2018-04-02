@@ -91,7 +91,7 @@ class GiftCardModal extends React.Component {
 
                     <Modal.Footer>
                         <Button bsStyle="danger" onClick={this.removeCard}>Remove this Card</Button>
-                        <Button bsStyle="primary" onClick={this.updateAmount}>Update</Button>
+                        <Button bsStyle="primary" onClick={this.updateAmount}>Update Amount</Button>
                     </Modal.Footer>
             
                 </Modal.Dialog>
