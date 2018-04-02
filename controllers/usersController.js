@@ -49,17 +49,7 @@ module.exports = {
               return res.send('no match found')
             }
         })
-        // .then(dbModel => res.json(dbModel))
-        // .catch(err => res.status(422).json(err));
-    })
-    
+    })   
 }
 
 };
-
-// test a failing password
-// user.comparePassword('123Password', function(err, isMatch) {
-//   if (err) throw err;
-//   console.log('123Password:', isMatch); 
-//   return isMatch
-// });

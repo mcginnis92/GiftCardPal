@@ -9,6 +9,8 @@ class Login extends React.Component {
     state = {
         username: '',
         password: '',
+        name: '',
+        _id: '',
         isLoggedIn: false
     };
    
@@ -27,17 +29,15 @@ class Login extends React.Component {
             username: this.state.username,
             password: this.state.password
             })
-            .then(res => console.log(res.data))
-                //add switch statement 
-                //if res.data._id - set isLoggedIn : true
-                //if login was incorrect show an alert if the login information is incorrect
+            // .then(res => console.log(res.data))
+            .then(res => res.data._id ? this.setState({name: res.data.fullname, _id: res.data._id, isLoggedIn: true}) : alert('incorrect login'))
             .catch(err => console.log(err));
     };
     
     render() {
         // return (
         return this.state.isLoggedIn ?
-            <Home />
+            <Home name={this.state.name} userID={this.state.userID}/>
             // <Redirect to='/home' component={Home}/>
             : 
             <Row>
