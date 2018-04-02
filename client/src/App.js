@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 
 //Pages
 import Splash from "./pages/Splash";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
 import GiftCardForm from './pages/GiftCardForm';

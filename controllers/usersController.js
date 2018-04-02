@@ -34,22 +34,56 @@ module.exports = {
   },
 
   //LOGIN A USER
-  login: function(req, res){
-    console.log("you hit the login user route");
-    console.log("req.body", req.body)
+  // login: function(req, res){
+  //   console.log("you hit the login user route");
+  //   console.log("req.body", req.body)
 
-    // var myPlaintextPassword = req.body.password;
+  //   // var myPlaintextPassword = req.body.password;
     
-    // bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
-      db.User.findOne({
-        username: req.body.username,
-        password: req.body.password
-      })
-        .then(userData => res.send(userData))
-        .catch(err => res.status(422).json(err));
-        // .catch(err => console.log(err.response));
-    // })
-  },
+  //   // bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
+  //     db.User.findOne({
+  //       username: req.body.username,
+  //       password: req.body.password
+  //     })
+    
+  //       .then(userData => res.json(userData))
+  //       .catch(err => res.status(422).json(err))
+  //       // .catch(err => console.log(err.response));
+  //   // })
+  //   // })
+  // },
+  
+  login: function(req, res){
+
+    var myPlaintextPassword = req.body.password;
+    var someOtherPlaintextPassword = 'hello';
+
+    bcrypt.hash(myPlaintextPassword, saltRounds).then(function(hash) {
+      console.log("hashed password", hash)
+  
+        // Load hash from your password DB.
+        bcrypt.compare(myPlaintextPassword, hash).then(function(res) {
+          db.User.findOne({
+            username: req.body.username,
+            password: hash
+          })
+            console.log("res is", res)
+              res === true ? console.log('true') : console.log('false')
+        })
+        //checking a fake password
+        // bcrypt.compare(someOtherPlaintextPassword, hash).then(function(res) {
+        //   db.User.findOne({
+        //     username: req.body.username,
+        //     password: someOtherPlaintextPassword
+        //   })
+        //     .then(dbModel => res.json(dbModel))
+        //     .catch(err => res.json(err))
+        // });
+    })
+    .then(userData => res.send(userData))
+    .catch(err => res.status(422).json(err));
+  }
+
 
 
 

@@ -27,7 +27,7 @@ class Login extends React.Component {
             username: this.state.username,
             password: this.state.password
             })
-            .then(res => console.log(res))
+            .then(res => console.log(res.data))
                 //add switch statement 
                 //if res.data._id - set isLoggedIn : true
                 //if login was incorrect show an alert if the login information is incorrect
@@ -38,6 +38,7 @@ class Login extends React.Component {
         // return (
         return this.state.isLoggedIn ?
             <Home />
+            // <Redirect to='/home' component={Home}/>
             : 
             <Row>
                 <Col xs={12}>
