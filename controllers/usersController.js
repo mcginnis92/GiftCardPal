@@ -42,18 +42,24 @@ module.exports = {
         user.comparePassword(req.body.password, function(err, isMatch) {
             if (err) throw err;
             console.log(req.body.password, isMatch); 
-            return isMatch
-        });
-
-        // test a failing password
-        user.comparePassword('123Password', function(err, isMatch) {
-            if (err) throw err;
-            console.log('123Password:', isMatch); 
-            return isMatch
-        });
+            if (isMatch){
+              return res.json(user)
+            }
+            else {
+              return res.send('no match found')
+            }
+        })
+        // .then(dbModel => res.json(dbModel))
+        // .catch(err => res.status(422).json(err));
     })
-    .then(dbModel => res.json(dbModel))
-    .catch(err => res.status(422).json(err));
+    
 }
 
 };
+
+// test a failing password
+// user.comparePassword('123Password', function(err, isMatch) {
+//   if (err) throw err;
+//   console.log('123Password:', isMatch); 
+//   return isMatch
+// });
