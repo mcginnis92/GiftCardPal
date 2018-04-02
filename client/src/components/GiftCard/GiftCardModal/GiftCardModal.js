@@ -16,18 +16,6 @@ class GiftCardModal extends React.Component {
         spent: ''
     };
 
-    // componentDidMount = () => {
-    //     let imagePreview = null;
-
-    //     var arrayBufferView = new Uint8Array(this.state.image);
-    //     var blob = new Blob( [ arrayBufferView ], { type: "image/jpeg" } );
-    //     var urlCreator = window.URL || window.webkitURL;
-    //     var imageUrl = urlCreator.createObjectURL( blob );
-    //     console.log(imageUrl, "image url");
-
-    //     imagePreview = (<img src={imageUrl} alt="gift card image"/>);
-    // }
-
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -36,40 +24,35 @@ class GiftCardModal extends React.Component {
     };
 
     updateAmount = event => {
-        console.log('id: ', this.state.id)
         event.preventDefault();
 
         let newTotal = this.state.amount - this.state.spent;
 
         API.updateCard(this.state.id, {amount: newTotal})
-        // .then(this.state.toggle)
-        .then(window.location = '/home')
+        .then(this.state.toggle)
         .catch(err => console.log(err));
     }
 
     removeCard = event => {
         API.deleteCard(this.state.id)
-        .then(window.location = '/home')
+        .then(this.state.toggle)
         .catch(err => console.log(err));
     }
 
     render() {
-        console.log(this.state.image, "this.state.image");
-        console.log(typeof(this.state.image));
-
 
         //Option 1
-        var arrayBufferView = new Uint8Array(this.state.image.data);
-        var blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
-        var urlCreator = window.URL || window.webkitURL;
-        var imageUrl = urlCreator.createObjectURL( blob );
-        //method A: drop the url into the image src
-        // var img = document.querySelector( "#photo" );
-        // img.src = imageUrl;
+        // var arrayBufferView = new Uint8Array(this.state.image.data);
+        // var blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
+        // var urlCreator = window.URL || window.webkitURL;
+        // var imageUrl = urlCreator.createObjectURL( blob );
+        // //method A: drop the url into the image src
+        // // var img = document.querySelector( "#photo" );
+        // // img.src = imageUrl;
 
-        //method B: dynamically create
-        console.log(imageUrl, "image url");
-        const imagePreview = (<img src={imageUrl} alt="gift card"/>);
+        // //method B: dynamically create
+        // // console.log(imageUrl, "image url");
+        // const imagePreview = (<img src={imageUrl} alt="gift card"/>);
         //---------------------------------------------------------------//
 
         // Option 2
@@ -87,10 +70,10 @@ class GiftCardModal extends React.Component {
                         <p>PIN: {this.state.pin}</p>
 
                         {/* //METHOD 1 */}
-                        <img id="photo" src={imagePreview} alt="preview"/>
+                        {/* <img id="photo" src={imagePreview} alt="preview"/> */}
 
-                        {/* //METHOD 2 */}
-                        {/* <div className="imgPreview">{blob}</div> */}
+                        {/* //METHOD 2
+                        {<div className="imgPreview">{blob}</div> */}
 
                         <FormGroup>
                             <ControlLabel>How much did you spend?</ControlLabel>
@@ -119,3 +102,15 @@ class GiftCardModal extends React.Component {
 
 
 export default GiftCardModal;
+
+// componentDidMount = () => {
+    //     let imagePreview = null;
+
+    //     var arrayBufferView = new Uint8Array(this.state.image);
+    //     var blob = new Blob( [ arrayBufferView ], { type: "image/jpeg" } );
+    //     var urlCreator = window.URL || window.webkitURL;
+    //     var imageUrl = urlCreator.createObjectURL( blob );
+    //     console.log(imageUrl, "image url");
+
+    //     imagePreview = (<img src={imageUrl} alt="gift card image"/>);
+    // }
