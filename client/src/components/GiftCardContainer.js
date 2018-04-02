@@ -24,9 +24,17 @@ class GiftCardContainer extends Component {
     // .then(res => console.log(res.data.giftcards))
     .then(res => this.setState({giftcards : res.data.giftcards}))
     .catch(err => console.log(err));
-
   };
 
+  componentDidUpdate = () => {
+    API.getUserGC({
+      _id: this.props._id
+    })
+    // .then(res => console.log(res.data.giftcards))
+    .then(res => this.setState({giftcards : res.data.giftcards}))
+    .catch(err => console.log(err));
+  }
+ 
   toggleModal = (number, name, pin, amount, id) => {
     this.setState({
       modal: !this.state.modal,

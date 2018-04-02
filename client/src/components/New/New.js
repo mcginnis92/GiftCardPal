@@ -11,7 +11,7 @@ class New extends React.Component {
         redirect: false
     }
 
-    addCard(value) {
+    addCard = (value) => {
         this.setState({
             redirect: value
         });

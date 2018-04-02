@@ -1,7 +1,8 @@
 import React from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
+import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button, Modal } from 'react-bootstrap';
 import API from '../../utils/API';
 import './GiftCardForm.css'
+import GiftCardContainer from '../../components/GiftCardContainer';
 
 class GiftCardForm extends React.Component {
     state = {
@@ -12,7 +13,8 @@ class GiftCardForm extends React.Component {
         pin: '',
         file: '',
         imagePreviewUrl: '',
-        _id: this.props._id
+        _id: this.props._id,
+        toggle: this.props.toggle
     };
 
     handleInputChange = e => {
@@ -48,8 +50,9 @@ class GiftCardForm extends React.Component {
             pin: this.state.pin,
             image: this.state.imagePreviewUrl
             })
-            // .then(this.props.toggle(false))
-            .then(res => console.log(res))
+            .then(this.state.toggle(false))
+            //then refresh the gift card container, passing it the user id
+            .then(this.forceUpdate())
             .catch(err => console.log(err));
     };
     
@@ -67,10 +70,13 @@ class GiftCardForm extends React.Component {
         console.log("Current ID", this.state._id)
 
         return (
-            <Row>
-                <Col xs={12}>
+            <Modal.Dialog>
+                <Modal.Header>
+                    <Modal.Title><strong>Add a Gift Card</strong></Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
                     <form action='.' encType="multipart/form-data">
-                        <h3>Add a Gift Card</h3>
                         {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
                         <FormGroup>
                             <ControlLabel>Enter a name for your gift card.</ControlLabel>
@@ -144,9 +150,9 @@ class GiftCardForm extends React.Component {
                         <br />
                         <Button onClick={this.handleFormSubmit} block>Submit</Button>
                     </form>
+                </Modal.Body>
 
-                </Col>
-            </Row>
+            </Modal.Dialog>
         );
     }
 }
