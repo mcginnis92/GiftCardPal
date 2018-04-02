@@ -1,54 +1,52 @@
 import React from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from "react-bootstrap";
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from "react-bootstrap";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import "./Login.css";
+import Home from '../../pages/Home';
 import API from '../../utils/API';
-import "./Signup.css";
 
-class Signup extends React.Component {
+class Login extends React.Component {
     state = {
         username: '',
         password: '',
-        fullname: ''
+        name: '',
+        _id: '',
+        isLoggedIn: false
     };
-
+   
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
             [name]: value
         });
     };
-
+    
     handleFormSubmit = event => {
         event.preventDefault();
         console.log("form submitted", this.state);
             
-        API.saveUser({
+        API.loginUser({
             username: this.state.username,
-            password: this.state.password,
-            fullname: this.state.fullname
+            password: this.state.password
             })
-            .then(res => console.log(res))
-            .catch(err => console.log(err))
+            // .then(res => console.log(res.data))
+            .then(res => res.data._id ? this.setState({name: res.data.fullname, _id: res.data._id, isLoggedIn: true}) : alert('incorrect login'))
+            .catch(err => console.log(err));
     };
     
     render() {
-        return (
+        // return (
+        return this.state.isLoggedIn ?
+            <Home name={this.state.name} userID={this.state._id}/>
+            // <Redirect to='/home' component={Home}/>
+            : 
             <Row>
                 <Col xs={12}>
                     <form>
-                        <h3>Create an Account</h3>
+                        <h3>Welcome Back! Please Log In.</h3>
                         {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
                         <FormGroup>
-                            <ControlLabel>Enter your full name.</ControlLabel>
-                            <FormControl 
-                                type="text" 
-                                value={this.state.fullname} 
-                                name="fullname" 
-                                placeholder="John Smith" 
-                                onChange={this.handleInputChange} />
-                        </FormGroup>
-
-                        <FormGroup>
-                            <ControlLabel>Enter your email address. This will be your username.</ControlLabel>
+                            <ControlLabel>Enter your username.</ControlLabel>
                             <FormControl 
                                 type="text" 
                                 value={this.state.username} 
@@ -58,7 +56,7 @@ class Signup extends React.Component {
                         </FormGroup>
 
                         <FormGroup>
-                            <ControlLabel>Enter a password with at least 5 characters.</ControlLabel>
+                            <ControlLabel>Enter your password.</ControlLabel>
                                 <FormControl 
                                     type="password" 
                                     value={this.state.password} 
@@ -67,12 +65,12 @@ class Signup extends React.Component {
                                     onChange={this.handleInputChange} />
                         </FormGroup>
 
-                        <Button onClick={this.handleFormSubmit} block>Submit</Button>
+                        <Button type="submit" block onClick={this.handleFormSubmit}>Submit</Button>
                     </form>
                 </Col>
             </Row>
-        );
+        // )
     }
 }
 
-export default Signup;
+export default Login;

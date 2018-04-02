@@ -17,15 +17,24 @@ class GiftCardContainer extends Component {
   };
 
   componentDidMount = () => {
+    console.log(this.props._id)
     API.getUserGC({
-      _id: '5abe59322b750a5550f0e861' //change this to the id that comes in from the users login
+      _id: this.props._id
     })
     // .then(res => console.log(res.data.giftcards))
     .then(res => this.setState({giftcards : res.data.giftcards}))
     .catch(err => console.log(err));
-
   };
 
+  componentDidUpdate = () => {
+    API.getUserGC({
+      _id: this.props._id
+    })
+    // .then(res => console.log(res.data.giftcards))
+    .then(res => this.setState({giftcards : res.data.giftcards}))
+    .catch(err => console.log(err));
+  }
+ 
   toggleModal = (number, name, pin, amount, id) => {
     this.setState({
       modal: !this.state.modal,
@@ -39,8 +48,6 @@ class GiftCardContainer extends Component {
   };
 
   render() {
-    console.log(this.state.giftcards, 'this.state.giftcards');
-
 
     return (
       <div>

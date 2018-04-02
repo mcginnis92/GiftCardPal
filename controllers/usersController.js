@@ -7,7 +7,6 @@ const LocalStrategy = require("passport-local").Strategy;
 module.exports = {
   //FIND A GIVEN USER'S GIFTCARDS
   findOne: function(req, res) {
-    console.log("req params", req.params)
 
     db.User.findOne(req.params)
       .populate("giftcards")
@@ -17,7 +16,6 @@ module.exports = {
 
   //CREATE A NEW USER
   create: function(req, res) {
-    console.log("you hit the create user route");
 
     var myPlaintextPassword = req.body.password;
 
@@ -33,46 +31,23 @@ module.exports = {
     });
   },
 
-  //LOGIN A USER
   login: function(req, res){
-    console.log("you hit the login user route");
-    console.log("req.body", req.body)
+    // fetch user and test password verification
+    db.User.findOne({ username: req.body.username }, function(err, user) {
+      if (err) throw err;
 
-    var myPlaintextPassword = req.body.password;
-    
-    // bcrypt.compare(myPlaintextPassword, hash, function(err, res) {
-      db.User.findOne({
-        username: req.body.username,
-        password: req.body.password
-      })
-        .then(dbModel => res.send(dbModel))
-        .catch(err => console.log(err.response));
-    // })
-  },
+        // test a matching password
+        user.comparePassword(req.body.password, function(err, isMatch) {
+            if (err) throw err;
+            console.log(req.body.password, isMatch); 
+            if (isMatch){
+              return res.json(user)
+            }
+            else {
+              return res.send('no match found')
+            }
+        })
+    })   
+}
 
-
-
-
-  // login: function(req, res) {
-  //   var username = req.body.username;
-  //   var password = req.body.password;
-
-  //   passport.use(
-  //     new LocalStrategy(function(username, password, done) {
-  //       User.findOne({ username: username }, function(err, user) {
-  //         if (err) {
-  //           return done(err);
-  //         }
-  //         if (!user) {
-  //           return done(null, false, { message: "Incorrect username." });
-  //         }
-
-  //         if (!user.validPassword(password)) {
-  //           return done(null, false, { message: "Incorrect password." });
-  //         }
-  //         return done(null, false, { message: "Incorrect password." });
-  //       });
-  //     })
-  //   );
-  // }
 };

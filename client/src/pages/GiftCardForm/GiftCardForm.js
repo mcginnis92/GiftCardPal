@@ -1,9 +1,10 @@
 import React from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button } from 'react-bootstrap';
+import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button, Modal } from 'react-bootstrap';
 import API from '../../utils/API';
 import './GiftCardForm.css'
+import GiftCardContainer from '../../components/GiftCardContainer';
 
-class Form extends React.Component {
+class GiftCardForm extends React.Component {
     state = {
         name: '',
         amount: '',
@@ -12,7 +13,8 @@ class Form extends React.Component {
         pin: '',
         file: '',
         imagePreviewUrl: '',
-        loggedIn: true,
+        _id: this.props._id,
+        toggle: this.props.toggle
     };
 
     handleInputChange = e => {
@@ -40,7 +42,7 @@ class Form extends React.Component {
         event.preventDefault();
 
         API.saveCard({
-            userId: "5abe59322b750a5550f0e861", //update this once we can get the props.userid from login
+            userId: this.state._id, //update this once we can get the props.userid from login
             name: this.state.name,
             amount: this.state.amount,
             category: this.state.category,
@@ -48,8 +50,9 @@ class Form extends React.Component {
             pin: this.state.pin,
             image: this.state.imagePreviewUrl
             })
-            // .then(window.location = '/home')
-            .then(res => console.log(res))
+            .then(this.state.toggle(false))
+            //then refresh the gift card container, passing it the user id
+            .then(this.forceUpdate())
             .catch(err => console.log(err));
     };
     
@@ -64,11 +67,16 @@ class Form extends React.Component {
           imagePreview = (<div className="previewText">Your image will be previewed here.</div>);
         }
 
+        console.log("Current ID", this.state._id)
+
         return (
-            <Row>
-                <Col xs={12}>
+            <Modal.Dialog>
+                <Modal.Header>
+                    <Modal.Title><strong>Add a Gift Card</strong></Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
                     <form action='.' encType="multipart/form-data">
-                        <h3>Add a Gift Card</h3>
                         {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
                         <FormGroup>
                             <ControlLabel>Enter a name for your gift card.</ControlLabel>
@@ -142,11 +150,11 @@ class Form extends React.Component {
                         <br />
                         <Button onClick={this.handleFormSubmit} block>Submit</Button>
                     </form>
+                </Modal.Body>
 
-                </Col>
-            </Row>
+            </Modal.Dialog>
         );
     }
 }
 
-export default Form;
+export default GiftCardForm;

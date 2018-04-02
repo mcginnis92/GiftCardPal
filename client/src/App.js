@@ -10,9 +10,9 @@ import Footer from './components/Footer';
 
 //Pages
 import Splash from "./pages/Splash";
-import Home from "./pages/Home";
-import Signup from "./pages/Signup";
-import Login from "./pages/Login";
+// import Home from "./pages/Home";
+import Signup from "./components/Signup";
+import Login from "./components/Login";
 import GiftCardForm from './pages/GiftCardForm';
 
 
@@ -24,10 +24,10 @@ class App extends Component {
           <Grid fluid>
               <Header/>
                 <Route exact path="/" component={Splash} />
-                <Route exact path="/signup" component={Signup} />
                 <Route exact path="/login" component={Login} />
-                <Route exact path="/home" component={Home} />
-                <Route path="/giftcard" component={GiftCardForm} />
+                <Route exact path="/signup" component={Signup} />
+                {/* <Route exact path="/home" component={Home} /> */}
+                {/* <Route path="/giftcard" component={GiftCardForm} /> */}
             <Footer/>
           </Grid>
         </Switch>
