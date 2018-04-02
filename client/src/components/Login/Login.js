@@ -37,7 +37,7 @@ class Login extends React.Component {
     render() {
         // return (
         return this.state.isLoggedIn ?
-            <Home name={this.state.name} userID={this.state.userID}/>
+            <Home name={this.state.name} userID={this.state._id}/>
             // <Redirect to='/home' component={Home}/>
             : 
             <Row>

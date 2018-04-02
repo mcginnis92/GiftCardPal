@@ -8,7 +8,7 @@ import TopMenu from '../../components/TopMenu';
 class Home extends React.Component {
     state = {
         name: this.props.name,
-        userID: this.props._id,
+        userID: this.props.userID,
         isLoggedIn: this.props.isLoggedIn
     }
     
@@ -16,7 +16,8 @@ class Home extends React.Component {
         return (
             <Grid>
                 <TopMenu name={this.state.name}/>
-                <GiftCardContainer/>
+                {this.props.userID}, {this.state.userID}
+                <GiftCardContainer _id={this.state.userID}/>
                 <New/>
             </Grid> 
         )

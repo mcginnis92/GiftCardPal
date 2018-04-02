@@ -17,8 +17,9 @@ class GiftCardContainer extends Component {
   };
 
   componentDidMount = () => {
+    console.log(this.props._id)
     API.getUserGC({
-      _id: '5abe59322b750a5550f0e861' //change this to the id that comes in from the users login
+      _id: this.props._id //change this to the id that comes in from the users login
     })
     // .then(res => console.log(res.data.giftcards))
     .then(res => this.setState({giftcards : res.data.giftcards}))
