@@ -38,18 +38,22 @@ module.exports = {
     db.User.findOne({ username: req.body.username }, function(err, user) {
       if (err) throw err;
 
-    // test a matching password
-    user.comparePassword(req.body.password, function(err, isMatch) {
-        if (err) throw err;
-        console.log(req.body.password, isMatch); 
-    });
+        // test a matching password
+        user.comparePassword(req.body.password, function(err, isMatch) {
+            if (err) throw err;
+            console.log(req.body.password, isMatch); 
+            return isMatch
+        });
 
-    // test a failing password
-    user.comparePassword('123Password', function(err, isMatch) {
-        if (err) throw err;
-        console.log('123Password:', isMatch); 
-    });
-  });
+        // test a failing password
+        user.comparePassword('123Password', function(err, isMatch) {
+            if (err) throw err;
+            console.log('123Password:', isMatch); 
+            return isMatch
+        });
+    })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
 }
 
 };
