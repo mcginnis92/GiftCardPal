@@ -14,6 +14,36 @@ class Signup extends React.Component {
         isLoggedIn: false
     };
 
+    nameValidationState = () => {
+        const fullname = this.state.fullname;
+        const letters = /^[A-Za-z]+$/;
+
+        if (fullname.match(letters)) return 'success';
+        else return 'error';
+        return null;
+    }
+
+    passwordValidationState = () => {
+        const length = this.state.password.length;
+        if (length >= 5) return 'success';
+        else if (length > 3) return 'warning';
+        else if (length > 0) return 'error';
+        return null;
+    }
+
+    validateEmail = (email) => {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    }
+    
+    emailValidationState = () => {
+        const email = this.state.username;
+        
+        if (this.validateEmail(email)) return 'success';
+        else return 'error';
+        return null;
+    }
+
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -22,7 +52,7 @@ class Signup extends React.Component {
     };
 
     handleFormSubmit = event => {
-        event.preventDefault();
+        event.preventDefault();        
         console.log("form submitted", this.state);
             
         API.saveUser({
@@ -37,8 +67,6 @@ class Signup extends React.Component {
     
     render() {
 
-        console.log(this.state.isLoggedIn)
-
         return this.state.isLoggedIn ?
             <Home isLoggedIn={this.state.isLoggedIn} name={this.state.fullname} userID={this.state._id}/> 
         :
@@ -48,28 +76,31 @@ class Signup extends React.Component {
                 <Col xs={12}>
                     <form>
                         <h3>Create an Account</h3>
-                        {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
-                        <FormGroup>
-                            <ControlLabel>Enter your full name.</ControlLabel>
+
+                        <FormGroup validationState={this.nameValidationState()}>
+                            <ControlLabel>Enter your name.</ControlLabel>
                             <FormControl 
                                 type="text" 
                                 value={this.state.fullname} 
                                 name="fullname" 
                                 placeholder="John Smith" 
                                 onChange={this.handleInputChange} />
+                            <FormControl.Feedback />
                         </FormGroup>
 
-                        <FormGroup>
+                        <FormGroup validationState={this.emailValidationState()}>
                             <ControlLabel>Enter your email address. This will be your username.</ControlLabel>
                             <FormControl 
-                                type="text" 
+                                type="email" 
                                 value={this.state.username} 
                                 name="username" 
                                 placeholder="YourName@YourEmail.com" 
                                 onChange={this.handleInputChange} />
+                            <FormControl.Feedback />
+                            
                         </FormGroup>
 
-                        <FormGroup>
+                        <FormGroup validationState={this.passwordValidationState()}>
                             <ControlLabel>Enter a password with at least 5 characters.</ControlLabel>
                                 <FormControl 
                                     type="password" 
@@ -77,6 +108,7 @@ class Signup extends React.Component {
                                     name="password" 
                                     placeholder="password" 
                                     onChange={this.handleInputChange} />
+                                <FormControl.Feedback />
                         </FormGroup>
 
                         <Button onClick={this.handleFormSubmit} block>Submit</Button>

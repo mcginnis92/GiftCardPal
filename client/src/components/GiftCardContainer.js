@@ -62,7 +62,7 @@ class GiftCardContainer extends Component {
           image={this.state.image}
         />}
         {this.state.giftcards.map(elem => 
-        <GiftCard 
+        <GiftCard
           name={elem.name} 
           amount={elem.amount} 
           category={elem.category} 
