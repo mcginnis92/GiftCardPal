@@ -3,10 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import "./Footer.css";
 
 const Footer = props => (
-    <Row className="footer">
-        <Col xs={12} className="text">Copyright &copy; 2018  |  Molly Moran</Col>
-    </Row>
-
+    <Row className="footer">Copyright &copy; 2018  |  Molly Moran</Row>
 );
 
 export default Footer;
