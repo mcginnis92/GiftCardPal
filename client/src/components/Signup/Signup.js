@@ -73,8 +73,6 @@ class Signup extends React.Component {
             <Home isLoggedIn={this.state.isLoggedIn} name={this.state.fullname} userID={this.state._id}/> 
         :
             <Row>
-                
-               
                 <Col xs={12}>
                     <form>
                         <h3>Create an Account</h3>

@@ -4,7 +4,9 @@ import "./TopMenu.css";
 
 const TopMenu = props => (
     <Row className="top-menu">
-        <h2>{props.name}</h2>
+        <Col xs={12}>
+            {/* <h3>{props.name}'s Gift Cards</h3> */}
+        </Col>
     </Row>
 );
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid } from 'react-bootstrap';
+import { Grid, Row } from 'react-bootstrap';
 import "./Home.css";
 import GiftCardContainer from '../../components/GiftCardContainer';
 import New from '../../components/New';
@@ -15,7 +15,7 @@ class Home extends React.Component {
     render(){
         return (
             <Grid>
-                <TopMenu name={this.state.name}/>
+                <TopMenu name={this.state.name} />
                 <GiftCardContainer _id={this.state.userID}/>
                 <New _id={this.state.userID}/>
             </Grid> 

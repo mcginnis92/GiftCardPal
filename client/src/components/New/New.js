@@ -1,7 +1,7 @@
 import React from "react";
-import { Row, Panel } from 'react-bootstrap';
+import { Row, Panel, Col } from 'react-bootstrap';
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
-// import FontAwesome from 'react-fontawesome';
+import FontAwesome from 'react-fontawesome';
 import "./New.css";
 import GiftCardForm from "../../pages/GiftCardForm";
  
@@ -29,8 +29,13 @@ class New extends React.Component {
                 <Row>
                     <Panel onClick={() => this.addCard(true)}>
                         <Panel.Body>
-                            <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                            <h3>Add a New Card</h3>
+                            <Col xs={9}>
+                                <h3>Add New</h3>
+                                <h4></h4>
+                            </Col>
+                            <Col xs={3}>
+                                <FontAwesome id="plus" name='plus-square-o' size="2x"/>
+                            </Col>
                         </Panel.Body>
                     </Panel>
                 </Row>

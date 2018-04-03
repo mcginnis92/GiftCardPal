@@ -3,6 +3,15 @@
     to {opacity: 100%;}
 }
 
+.title {
+    margin-top: 0;
+    /* color: #08aeea; */
+}
+
+/* .category {
+    color: #08aeea;
+} */
+
 .card {
     opacity: 100%;
     animation-name: example;
