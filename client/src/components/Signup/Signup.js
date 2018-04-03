@@ -19,6 +19,7 @@ class Signup extends React.Component {
         const letters = /^[A-Za-z]+$/;
 
         if (fullname.match(letters)) return 'success';
+        else if (fullname.length == 0) return null;
         else return 'error';
         return null;
     }
@@ -40,6 +41,7 @@ class Signup extends React.Component {
         const email = this.state.username;
         
         if (this.validateEmail(email)) return 'success';
+        else if (email.length == 0) return null;
         else return 'error';
         return null;
     }
