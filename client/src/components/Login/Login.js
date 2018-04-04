@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, Button } from "react-bootstrap";
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button, Grid } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import "./Login.css";
 import Home from '../../pages/Home';
@@ -40,36 +40,37 @@ class Login extends React.Component {
             <Home name={this.state.name} userID={this.state._id}/>
             // <Redirect to='/home' component={Home}/>
             : 
-            <Row>
-                <Col xs={12}>
-                    <form>
-                        <h3>Welcome Back! Please Log In.</h3>
-                        {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
-                        <FormGroup>
-                            <ControlLabel>Enter your username.</ControlLabel>
-                            <FormControl 
-                                type="text" 
-                                value={this.state.username} 
-                                name="username" 
-                                placeholder="YourName@YourEmail.com" 
-                                onChange={this.handleInputChange} />
-                        </FormGroup>
-
-                        <FormGroup>
-                            <ControlLabel>Enter your password.</ControlLabel>
+            <Grid>
+                <Row>
+                    <Col xs={12} md={6} mdOffset={3}>
+                        <form>
+                            <h3>Welcome Back! Please Log In.</h3>
+                            {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
+                            <FormGroup>
+                                <ControlLabel>Enter your username.</ControlLabel>
                                 <FormControl 
-                                    type="password" 
-                                    value={this.state.password} 
-                                    name="password" 
-                                    placeholder="password" 
+                                    type="text" 
+                                    value={this.state.username} 
+                                    name="username" 
+                                    placeholder="YourName@YourEmail.com" 
                                     onChange={this.handleInputChange} />
-                        </FormGroup>
+                            </FormGroup>
 
-                        <Button type="submit" block onClick={this.handleFormSubmit}>Submit</Button>
-                    </form>
-                </Col>
-            </Row>
-        // )
+                            <FormGroup>
+                                <ControlLabel>Enter your password.</ControlLabel>
+                                    <FormControl 
+                                        type="password" 
+                                        value={this.state.password} 
+                                        name="password" 
+                                        placeholder="password" 
+                                        onChange={this.handleInputChange} />
+                            </FormGroup>
+
+                            <Button type="submit" block onClick={this.handleFormSubmit}>Submit</Button>
+                        </form>
+                    </Col>
+                </Row>
+        </Grid>
     }
 }
 

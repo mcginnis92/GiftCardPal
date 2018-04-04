@@ -9,6 +9,7 @@ class Signup extends React.Component {
     state = {
         username: '',
         password: '',
+        confirmedPassword: '',
         fullname: '',
         _id: '',
         isLoggedIn: false
@@ -30,6 +31,14 @@ class Signup extends React.Component {
         else if (length > 3) return 'warning';
         else if (length > 0) return 'error';
         return null;
+    }
+
+    confirmPassword = () => {
+        const confirmedPassword = this.state.confirmedPassword;
+        if (confirmedPassword.length === 0) return null;
+        else if (confirmedPassword !== this.state.password) return 'warning';
+        else if (confirmedPassword === this.state.password) return 'success';
+        return null;  
     }
 
     validateEmail = (email) => {
@@ -73,7 +82,7 @@ class Signup extends React.Component {
             <Home isLoggedIn={this.state.isLoggedIn} name={this.state.fullname} userID={this.state._id}/> 
         :
             <Row>
-                <Col xs={12}>
+                <Col xs={12} md={6} mdOffset={3}>
                     <form>
                         <h3>Create an Account</h3>
 
@@ -106,6 +115,17 @@ class Signup extends React.Component {
                                     type="password" 
                                     value={this.state.password} 
                                     name="password" 
+                                    placeholder="password" 
+                                    onChange={this.handleInputChange} />
+                                <FormControl.Feedback />
+                        </FormGroup>
+
+                        <FormGroup validationState={this.confirmPassword()}>
+                        <ControlLabel>Confirm password</ControlLabel>
+                                <FormControl 
+                                    type="password" 
+                                    value={this.state.confirmedPassword}
+                                    name="confirmedPassword" 
                                     placeholder="password" 
                                     onChange={this.handleInputChange} />
                                 <FormControl.Feedback />
