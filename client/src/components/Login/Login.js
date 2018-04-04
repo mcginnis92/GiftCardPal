@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, Button, Grid } from "react-bootstrap";
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button, Grid, Alert } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import "./Login.css";
 import Home from '../../pages/Home';
@@ -11,8 +11,13 @@ class Login extends React.Component {
         password: '',
         name: '',
         _id: '',
-        isLoggedIn: false
+        isLoggedIn: false,
+        showAlert: false
     };
+
+    handleAlert = () => {
+        this.setState({ showAlert: true });
+    }
    
     /**
      * @function handleInputChange saves input value to the state as they are modified
@@ -38,7 +43,7 @@ class Login extends React.Component {
             username: this.state.username,
             password: this.state.password
             })
-            .then(res => res.data._id ? this.setState({name: res.data.fullname, _id: res.data._id, isLoggedIn: true}) : alert('incorrect login'))
+            .then(res => res.data._id ? this.setState({name: res.data.fullname, _id: res.data._id, isLoggedIn: true}) :  this.handleAlert())
             .catch(err => console.log(err));
     };
     
@@ -50,6 +55,7 @@ class Login extends React.Component {
                     <Col xs={12} md={6} mdOffset={3}>
                         <form>
                             <h3>Welcome Back! Please Log In.</h3>
+                            { this.state.showAlert ? <Alert bsStyle="info"><strong>Incorrect login. Try again!</strong></Alert> : null }
                             <FormGroup>
                                 <ControlLabel>Enter your username.</ControlLabel>
                                 <FormControl 

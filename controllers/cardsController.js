@@ -1,4 +1,6 @@
 const db = require("../models"); 
+const bcrypt = require("bcrypt");
+const saltRounds = 10;
 
 module.exports = {
   //Find all gift cards in database
@@ -35,6 +37,29 @@ module.exports = {
         res.json(err);
       });
   },
+
+  // create: function(req, res){
+  // var myPlaintextNumber = req.body.number;
+
+  // bcrypt.hash(myPlaintextNumber, saltRounds).then(function(hash) {
+  //   db.GiftCard.create({
+  //       name: req.body.name,
+  //       amount: req.body.amount,
+  //       category: req.body.category,
+  //       number: hash,
+  //       pin: req.body.pin,
+  //     })
+  //     .then(function(newCard) {
+  //       return db.User.findOneAndUpdate(
+  //         {_id: req.body.userId },
+  //         { $push: { giftcards: newCard._id } }, 
+  //         { new: true }
+  //       );
+  //     })
+  //     .then(dbModel => res.json(dbModel))
+  //     .catch(err => res.status(422).json(err))
+  //   })
+  // },
 
   //Update a giftcard
   update: function(req, res) {
