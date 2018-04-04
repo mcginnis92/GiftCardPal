@@ -1,33 +1,24 @@
 const db = require("../models"); 
 
 module.exports = {
+  //Find all gift cards in database
   findAll: function(req, res) {
-    console.log('route hit');
     db.GiftCard
       .find({})
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+
+  //Find a particular gift card by its id
   findById: function(req, res) {
     db.GiftCard
       .findById(req.params.id)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
-  findByName: function(req, res) {
-    db.GiftCard
-      .findOne({'name': req.params.name})
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
-  create: function(req, res) {
-    db.GiftCard
-      .create(req.body)
-      .then(dbModel => res.json(dbModel))
-      .catch(err => res.status(422).json(err));
-  },
+
+  //Create a new gift card and associate it with a user
   create: function(req, res){
-    console.log(req.body._id)
     db.GiftCard
       .create(req.body)
       .then(function(newCard) {
@@ -44,12 +35,16 @@ module.exports = {
         res.json(err);
       });
   },
+
+  //Update a giftcard
   update: function(req, res) {
     db.GiftCard
       .findOneAndUpdate({_id: req.params.id }, req.body)
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
   },
+  
+  //Remove a gift card
   remove: function(req, res) {
     db.GiftCard
       .findById({ _id: req.params.id })

@@ -23,7 +23,7 @@ var bcrypt = require('bcrypt');
                 function(input) {
                   return input.length >= 5;
                 },
-                "Password must be at least 6 characters"
+                "Password must be at least 5 characters"
             ]
         },
         giftcards: [
@@ -34,6 +34,12 @@ var bcrypt = require('bcrypt');
         ]
     });
 
+    /**
+     * @function comparePassword checks the password a user gives us
+     * @param {string} candidatePassword what the user typed in
+     * @param {function} cb the bcrypt compare function that checks for a match
+     * @returns {boolean} isMatch
+     */
     UserSchema.methods.comparePassword = function(candidatePassword, cb) {
         bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
             if (err) return cb(err);

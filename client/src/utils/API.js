@@ -1,6 +1,9 @@
 import axios from "axios";
 
 export default {
+
+  /****************** GIFT CARD ROUTES **********************/
+
   // Gets the gift card with the given name
   getCard: function(id) {
     return axios.get("/api/giftcards/" + id);
