@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button, Modal, HelpBlock } from 'react-bootstrap';
+import { Row, Col, FormGroup, ControlLabel, FormControl, InputGroup, Button, Modal, HelpBlock, Alert } from 'react-bootstrap';
 import API from '../../utils/API';
 import './GiftCardForm.css'
 import GiftCardContainer from '../../components/GiftCardContainer';
@@ -107,7 +107,7 @@ class GiftCardForm extends React.Component {
             })
             .then(this.state.toggle(false))
             .then(this.forceUpdate())
-            .catch(err => console.log(err));
+            .catch(err => console.log(err))
     };
     
     render() {
@@ -117,7 +117,7 @@ class GiftCardForm extends React.Component {
                     <Modal.Title><strong>Add a Gift Card</strong></Modal.Title>
                 </Modal.Header>
 
-                <Modal.Body>
+                <Modal.Body>                    
                     <form>
                         <FormGroup validationState={this.nameValidationState()}>
                             <ControlLabel>Enter a name for your gift card.</ControlLabel>

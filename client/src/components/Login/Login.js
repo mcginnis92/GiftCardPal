@@ -15,6 +15,10 @@ class Login extends React.Component {
         showAlert: false
     };
 
+    /**
+     * @function handleAlert triggers an alert if the login credentials supplied are incorrect
+     * @returns an alert
+     */
     handleAlert = () => {
         this.setState({ showAlert: true });
     }

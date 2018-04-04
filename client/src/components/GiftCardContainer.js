@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Alert } from 'react-bootstrap';
 import GiftCard from './GiftCard';
 import API from '../utils/API';
 import GiftCardModal from './GiftCard/GiftCardModal';
@@ -65,7 +66,7 @@ class GiftCardContainer extends Component {
       <div>
         {this.state.modal && 
         <GiftCardModal 
-          toggle={this.toggleModal} 
+          toggle={this.toggleModal}
           number={this.state.number} 
           name={this.state.name} 
           pin={this.state.pin}

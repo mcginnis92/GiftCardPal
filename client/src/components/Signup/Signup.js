@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock } from "react-bootstrap";
+import { Row, Col, FormGroup, ControlLabel, FormControl, Button, HelpBlock, Alert } from "react-bootstrap";
 import { BrowserRouter as Router, Route, Link, Redirect } from "react-router-dom";
 import Home from '../../pages/Home';
 import API from '../../utils/API';
@@ -12,8 +12,17 @@ class Signup extends React.Component {
         confirmedPassword: '',
         fullname: '',
         _id: '',
-        isLoggedIn: false
+        isLoggedIn: false,
+        showAlert: false
     };
+
+    /**
+     * @function handleAlert triggers an alert if the login credentials supplied are incorrect
+     * @returns an alert
+     */
+    handleAlert = () => {
+        this.setState({ showAlert: true });
+    }
 
     /**
      * @function nameValidationState checks if the inputted name contains only letters
@@ -106,7 +115,7 @@ class Signup extends React.Component {
             fullname: this.state.fullname
             })
             .then(res => this.setState({isLoggedIn : true, fullname: res.data.fullname, _id: res.data._id}))
-            .catch(err => console.log(err))
+            .catch(err => this.handleAlert())
     };
     
     render() {
@@ -118,6 +127,8 @@ class Signup extends React.Component {
                 <Col xs={12} md={6} mdOffset={3}>
                     <form>
                         <h3>Create an Account</h3>
+
+                        { this.state.showAlert ? <Alert bsStyle="info"><strong>Please check that your supplied credentials meet the requirements before signing up.</strong></Alert> : null }
 
                         <FormGroup validationState={this.nameValidationState()}>
                             <ControlLabel>Enter your name.</ControlLabel>
