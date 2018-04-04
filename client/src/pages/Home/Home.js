@@ -23,16 +23,4 @@ class Home extends React.Component {
     }
 }
 
-
-
-// const Home = props => {
- 
-//     <Grid>
-//         <TopMenu />
-//         <GiftCardContainer/>
-//         <New/>
-//     </Grid>    
-  
-// };
-
 export default Home;

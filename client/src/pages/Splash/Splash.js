@@ -3,7 +3,7 @@ import { Grid, Row, Col, Button } from 'react-bootstrap';
 import "./Splash.css";
 
 const Splash = props => (
-    <Grid>
+    <div>
         <Row>
             <Col xs={12} md={6} mdOffset={3}>
                 <h3>Never forget a gift card again.</h3>
@@ -27,7 +27,7 @@ const Splash = props => (
                 <Button bsSize="large" block id="blue" href="/signup">New User </Button> 
             </Col>  
         </Row>
-    </Grid>
+    </div>
 );
 
 export default Splash;
