@@ -40,7 +40,6 @@ class Login extends React.Component {
             <Home name={this.state.name} userID={this.state._id}/>
             // <Redirect to='/home' component={Home}/>
             : 
-            <Grid>
                 <Row>
                     <Col xs={12} md={6} mdOffset={3}>
                         <form>
@@ -70,7 +69,6 @@ class Login extends React.Component {
                         </form>
                     </Col>
                 </Row>
-        </Grid>
     }
 }
 
