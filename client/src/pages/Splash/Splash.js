@@ -11,7 +11,7 @@ const Splash = props => (
         </Row>
         <Row> 
             <Col xs={12} md={6} mdOffset={3}>
-                <h4 id="green" align="center"><strong>How it Works</strong></h4>
+                <h4 id="green"><strong>How it Works</strong></h4>
                 <p>Gift Card Pal saves your gift card numbers, values, and categories for easy access.</p>
                 <p>Your data is securely stored and updated in real time.</p>
                 <p>Simply add a gift card to your account and update how much you spent to get a live update of your balance.</p>
