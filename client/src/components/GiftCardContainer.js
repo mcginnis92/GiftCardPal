@@ -12,29 +12,42 @@ class GiftCardContainer extends Component {
     name: '',
     pin: '',
     amount: '',
-    id: '',
-    image: ''
+    id: ''
   };
 
+  /**
+   * @function componentDidMount makes a get request to obtain all of the user's gift cards
+   * @returns the state updated with the user's gift card data
+   */
   componentDidMount = () => {
-    console.log(this.props._id)
     API.getUserGC({
       _id: this.props._id
     })
-    // .then(res => console.log(res.data.giftcards))
     .then(res => this.setState({giftcards : res.data.giftcards}))
     .catch(err => console.log(err));
   };
 
+  /**
+   * @function componentDidUpdate re-renders the gift cards after any changes have been made 
+   * @returns the state updated with the user's gift card data
+   */
   componentDidUpdate = () => {
     API.getUserGC({
       _id: this.props._id
     })
-    // .then(res => console.log(res.data.giftcards))
     .then(res => this.setState({giftcards : res.data.giftcards}))
     .catch(err => console.log(err));
   }
  
+  /**
+   * @function toggleModal triggers a modal with the gift card information
+   * @param {number} number the gift card number
+   * @param {string} name the gift card name
+   * @param {number} pin the gift card pin number
+   * @param {amount} number the amount of money on the gift card
+   * @param {number} id the gift card id
+   * @returns a modal with the specified gift card's info
+   */
   toggleModal = (number, name, pin, amount, id) => {
     this.setState({
       modal: !this.state.modal,
@@ -44,7 +57,6 @@ class GiftCardContainer extends Component {
       amount: amount,
       id: id
     });
-    console.log(number, "gcnum")
   };
 
   render() {

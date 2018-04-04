@@ -15,6 +15,11 @@ class Signup extends React.Component {
         isLoggedIn: false
     };
 
+    /**
+     * @function nameValidationState checks if the inputted name contains only letters
+     * @param { string } this.state.fullname
+     * @returns success or error feedback to the user
+     */
     nameValidationState = () => {
         const fullname = this.state.fullname;
         const letters = /^[A-Za-z]+$/;
@@ -25,6 +30,11 @@ class Signup extends React.Component {
         return null;
     }
 
+    /**
+     * @function passwordValidationState checks if the inputted password is at least 5 characters
+     * @param { string } this.state.password.length
+     * @returns success or error feedback to the user
+     */
     passwordValidationState = () => {
         const length = this.state.password.length;
         if (length >= 5) return 'success';
@@ -33,6 +43,11 @@ class Signup extends React.Component {
         return null;
     }
 
+    /**
+     * @function confirmPassword checks if the 2 passwords match
+     * @param { string } this.state.confirmedPassword
+     * @returns success or error feedback to the user
+     */
     confirmPassword = () => {
         const confirmedPassword = this.state.confirmedPassword;
         if (confirmedPassword.length === 0) return null;
@@ -41,11 +56,21 @@ class Signup extends React.Component {
         return null;  
     }
 
+    /**
+     * @function validateEmail checks if the input matches the format of an email address
+     * @param { string } email
+     * @returns a boolean
+     */
     validateEmail = (email) => {
         const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(email);
     }
     
+    /**
+     * @function emailValidationState runs the validateEmail function
+     * @param { string } this.state.username
+     * @returns success or error feedback to the user
+     */
     emailValidationState = () => {
         const email = this.state.username;
         
@@ -55,6 +80,11 @@ class Signup extends React.Component {
         return null;
     }
 
+    /**
+     * @function handleInputChange saves input value to the state as they are modified
+     * @param event input change
+     * @returns updated state
+     */
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -62,9 +92,13 @@ class Signup extends React.Component {
         });
     };
 
+    /**
+     * @function handleFormSubmit sends a post request with the user's sign up information
+     * @param event form submission
+     * @returns the logged in (new) user
+     */
     handleFormSubmit = event => {
         event.preventDefault();        
-        console.log("form submitted", this.state);
             
         API.saveUser({
             username: this.state.username,
@@ -72,7 +106,6 @@ class Signup extends React.Component {
             fullname: this.state.fullname
             })
             .then(res => this.setState({isLoggedIn : true, fullname: res.data.fullname, _id: res.data._id}))
-            // .then(res => console.log(res.data))
             .catch(err => console.log(err))
     };
     

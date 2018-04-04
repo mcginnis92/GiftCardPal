@@ -15,7 +15,7 @@ class Home extends React.Component {
     render(){
         return (
             <Grid>
-                <TopMenu name={this.state.name} />
+                <TopMenu />
                 <GiftCardContainer _id={this.state.userID}/>
                 <New _id={this.state.userID}/>
             </Grid> 

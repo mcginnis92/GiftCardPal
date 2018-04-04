@@ -1,4 +1,4 @@
-@keyframes example {
+@keyframes fadeCard {
     from {opacity: 0%;}
     to {opacity: 100%;}
 }
@@ -9,6 +9,6 @@
 
 .card {
     opacity: 100%;
-    animation-name: example;
+    animation-name: fadeCard;
     animation-duration: 4s;
 }

@@ -1,8 +1,6 @@
 const db = require("../models");
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
-const passport = require("passport");
-const LocalStrategy = require("passport-local").Strategy;
 
 module.exports = {
   //FIND A GIVEN USER'S GIFTCARDS

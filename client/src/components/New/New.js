@@ -11,20 +11,22 @@ class New extends React.Component {
         redirect: false
     }
 
-    addCard = (value) => {
+    /**
+     * @function addCard triggers the gift card form to open
+     * @param { boolean } value tells whether the page should redirect or not
+     * @returns the gift card form if true
+     */
+    addCard = value => {
         this.setState({
             redirect: value
         });
     }
 
     render(){
-        console.log(this.state);
-
         return (
             this.state.redirect ? 
 
                 <GiftCardForm _id={this.state._id} toggle={this.addCard} />
-
             :
                 <Row>
                     <Panel onClick={() => this.addCard(true)}>
@@ -42,23 +44,5 @@ class New extends React.Component {
         )      
     }
 }
-
-// const New = props => {
-
-//     function handleClick() {
-//         window.location ='/giftcard';
-//     }
-
-//     return (
-//         <Row>
-//             <Panel onClick={handleClick}>
-//                 <Panel.Body>
-//                     <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
-//                     <h3>Add a New Card</h3>
-//                 </Panel.Body>
-//             </Panel>
-//         </Row>
-//     )
-// };
 
 export default New;

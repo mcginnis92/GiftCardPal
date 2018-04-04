@@ -16,6 +16,11 @@ class GiftCardModal extends React.Component {
         spent: ''
     };
 
+    /**
+     * @function handleInputChange saves input value to the state as they are modified
+     * @param event input change
+     * @returns updated state
+     */
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -23,9 +28,13 @@ class GiftCardModal extends React.Component {
         });
     };
 
+    /**
+     * @function updateAmount sends a put request to the gift card database to update the amount remaining
+     * @param event a submission of the form field indicating a change was made
+     * @returns the new total on the card
+     */
     updateAmount = event => {
         event.preventDefault();
-
         let newTotal = this.state.amount - this.state.spent;
 
         API.updateCard(this.state.id, {amount: newTotal})
@@ -33,6 +42,11 @@ class GiftCardModal extends React.Component {
         .catch(err => console.log(err));
     }
 
+    /**
+     * @function removeCard sends a delete request to the database
+     * @param event clicking on the remove card button
+     * @returns the updated list of gift cards
+     */
     removeCard = event => {
         API.deleteCard(this.state.id)
         .then(this.state.toggle)
@@ -40,24 +54,6 @@ class GiftCardModal extends React.Component {
     }
 
     render() {
-
-        //Option 1
-        // var arrayBufferView = new Uint8Array(this.state.image.data);
-        // var blob = new Blob( [ arrayBufferView ], { type: "image/png" } );
-        // var urlCreator = window.URL || window.webkitURL;
-        // var imageUrl = urlCreator.createObjectURL( blob );
-        // //method A: drop the url into the image src
-        // // var img = document.querySelector( "#photo" );
-        // // img.src = imageUrl;
-
-        // //method B: dynamically create
-        // // console.log(imageUrl, "image url");
-        // const imagePreview = (<img src={imageUrl} alt="gift card"/>);
-        //---------------------------------------------------------------//
-
-        // Option 2
-        // const blob = new Blob([this.state.image.data], {type: "image.png"});
-
         return (
             <div>
                 <Modal.Dialog>
@@ -69,12 +65,6 @@ class GiftCardModal extends React.Component {
                         <p>Gift Card Number: {this.state.number}</p>
                         <p>PIN: {this.state.pin}</p>
 
-                        {/* //METHOD 1 */}
-                        {/* <img id="photo" src={imagePreview} alt="preview"/> */}
-
-                        {/* //METHOD 2
-                        {<div className="imgPreview">{blob}</div> */}
-
                         <FormGroup>
                             <ControlLabel>How much did you spend?</ControlLabel>
                             <InputGroup>
@@ -83,7 +73,6 @@ class GiftCardModal extends React.Component {
                                     type="text" 
                                     value={this.state.spent}
                                     name="spent" 
-                                    // placeholder="" 
                                     onChange={this.handleInputChange} />
                             </InputGroup>
                         </FormGroup>
@@ -102,15 +91,3 @@ class GiftCardModal extends React.Component {
 
 
 export default GiftCardModal;
-
-// componentDidMount = () => {
-    //     let imagePreview = null;
-
-    //     var arrayBufferView = new Uint8Array(this.state.image);
-    //     var blob = new Blob( [ arrayBufferView ], { type: "image/jpeg" } );
-    //     var urlCreator = window.URL || window.webkitURL;
-    //     var imageUrl = urlCreator.createObjectURL( blob );
-    //     console.log(imageUrl, "image url");
-
-    //     imagePreview = (<img src={imageUrl} alt="gift card image"/>);
-    // }

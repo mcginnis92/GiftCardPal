@@ -11,26 +11,37 @@ class GiftCardForm extends React.Component {
         category: '',
         number: '',
         pin: '',
-        file: '',
-        imagePreviewUrl: '',
         _id: this.props._id,
         toggle: this.props.toggle
     };
 
+    /**
+     * @function nameValidationState checks if the gift card name has a value
+     * @param {string} this.state.name
+     * @returns feedback to the user
+     */
     nameValidationState = () => {
         const name = this.state.name;
-        const letters = /^[A-Za-z]+$/;
-        if (name.match(letters)) return 'success';
-        else if (name.length == 0) return null;
-        else return 'error';
+        if (name.length) return 'success';
         return null;
     }
 
+     /**
+     * @function categoryValidationState checks if the gift card value has an input
+     * @param {string} this.state.category
+     * @returns feedback to the user
+     */
     categoryValidationState = () => {
         const category = this.state.category;
         if (category.length) return 'success';
+        return null;
     }
 
+     /**
+     * @function numValidationState checks if the gift card value is a number
+     * @param {number} this.state.amount
+     * @returns feedback to the user
+     */
     numValidationState = () => {
         const amount = this.state.amount;
         if (isNaN(amount)) return 'error';
@@ -39,6 +50,11 @@ class GiftCardForm extends React.Component {
         return null;
     }
 
+     /**
+     * @function cardValidationState checks if the gift card number has 8 characters or more
+     * @param {string} this.state.number
+     * @returns feedback to the user
+     */
     cardValidationState = () => {
         const length = this.state.number.length;
         if (length >= 8) return 'success';
@@ -47,6 +63,11 @@ class GiftCardForm extends React.Component {
         return null;
     }
 
+     /**
+     * @function pinValidationState checks if the gift card pin is a number
+     * @param {number} this.state.pin
+     * @returns feedback to the user
+     */
     pinValidationState = () => {
         const pin = this.state.pin;
         if (isNaN(pin)) return 'error';
@@ -55,6 +76,11 @@ class GiftCardForm extends React.Component {
         return null;
     }
 
+    /**
+     * @function handleInputChange updates the state when changes to the form are made
+     * @param {event} e changes to the input fields
+     * @returns updated state
+     */
     handleInputChange = e => {
         const { name, value } = e.target;
         this.setState({
@@ -62,25 +88,16 @@ class GiftCardForm extends React.Component {
         });
     };
     
-    getPhoto = e => {
-        let reader = new FileReader();
-        let file = e.target.files[0];
-        console.log("file: ", file);
-
-        reader.onloadend = () => {
-          this.setState({
-            file: file,
-            imagePreviewUrl: reader.result
-          });
-        }
-        reader.readAsDataURL(file);
-    }
-    
+    /**
+     * @function handleFormSubmit makes a post request to save the new gift card
+     * @param {event} event submission of the form
+     * @returns the updated gift card container with the new gift card
+     */
     handleFormSubmit = event => {
         event.preventDefault();
 
         API.saveCard({
-            userId: this.state._id, //update this once we can get the props.userid from login
+            userId: this.state._id, 
             name: this.state.name,
             amount: this.state.amount,
             category: this.state.category,
@@ -89,24 +106,11 @@ class GiftCardForm extends React.Component {
             image: this.state.imagePreviewUrl
             })
             .then(this.state.toggle(false))
-            //then refresh the gift card container, passing it the user id
             .then(this.forceUpdate())
             .catch(err => console.log(err));
     };
     
     render() {
-
-        let {imagePreviewUrl} = this.state;
-        let imagePreview = null;
-        
-        if (imagePreviewUrl) {
-          imagePreview = (<img src={imagePreviewUrl} alt="preview"/>);
-        } else {
-          imagePreview = (<div className="previewText">Your image will be previewed here.</div>);
-        }
-
-        console.log("Current ID", this.state._id)
-
         return (
             <Modal.Dialog>
                 <Modal.Header>
@@ -114,8 +118,7 @@ class GiftCardForm extends React.Component {
                 </Modal.Header>
 
                 <Modal.Body>
-                    <form action='.' encType="multipart/form-data">
-                        {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
+                    <form>
                         <FormGroup validationState={this.nameValidationState()}>
                             <ControlLabel>Enter a name for your gift card.</ControlLabel>
                             <FormControl 
@@ -182,15 +185,6 @@ class GiftCardForm extends React.Component {
                                     onChange={this.handleInputChange} />
                                 <FormControl.Feedback />
                         </FormGroup>
-
-                        <ControlLabel>Upload an image your gift card. Make sure it contains the full gift card number and PIN.</ControlLabel> 
-                        <div>
-                            <input type='file' onChange={this.getPhoto}/>
-                        
-                            <div className="imgPreview">
-                                {imagePreview}
-                            </div>
-                        </div>
 
                         <br />
                         <Button onClick={this.handleFormSubmit} block>Submit</Button>

@@ -3,6 +3,11 @@ import FontAwesome from 'react-fontawesome';
 import "./Icon.css"; 
 
 const Icon = props => {
+    /**
+     * @function switchIcon displays the correct icon in the gift card panel
+     * @param {*} category tells which category should be displayed
+     * @returns the correct icon
+     */
    function switchIcon (category){
         switch (category) {
             case "Dining":
@@ -22,7 +27,7 @@ const Icon = props => {
     const iconName = switchIcon(props.category);
 
     return (
-        <FontAwesome className='icon' name={iconName} size='2x' />
+        <FontAwesome className='icon' name={iconName} size='2x'/>
     )
 };
 

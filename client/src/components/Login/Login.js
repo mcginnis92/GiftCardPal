@@ -14,6 +14,11 @@ class Login extends React.Component {
         isLoggedIn: false
     };
    
+    /**
+     * @function handleInputChange saves input value to the state as they are modified
+     * @param event input change
+     * @returns updated state
+     */
     handleInputChange = event => {
         const { name, value } = event.target;
         this.setState({
@@ -21,30 +26,30 @@ class Login extends React.Component {
         });
     };
     
+    /**
+     * @function handleFormSubmit sends a post request with the user's login information
+     * @param event form submission
+     * @returns the logged in user
+     */
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log("form submitted", this.state);
-            
+        console.log(this.state, "form submitted")
         API.loginUser({
             username: this.state.username,
             password: this.state.password
             })
-            // .then(res => console.log(res.data))
             .then(res => res.data._id ? this.setState({name: res.data.fullname, _id: res.data._id, isLoggedIn: true}) : alert('incorrect login'))
             .catch(err => console.log(err));
     };
     
     render() {
-        // return (
         return this.state.isLoggedIn ?
             <Home name={this.state.name} userID={this.state._id}/>
-            // <Redirect to='/home' component={Home}/>
             : 
                 <Row>
                     <Col xs={12} md={6} mdOffset={3}>
                         <form>
                             <h3>Welcome Back! Please Log In.</h3>
-                            {/* <FormGroup controlId="formBasicText" validationState={this.getValidationState()}> */}
                             <FormGroup>
                                 <ControlLabel>Enter your username.</ControlLabel>
                                 <FormControl 

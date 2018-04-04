@@ -1,10 +1,6 @@
 import axios from "axios";
 
 export default {
-  // // Gets all gift cards
-  // getCards: function() {
-  //   return axios.get("/api/giftcards");
-  // },
   // Gets the gift card with the given name
   getCard: function(id) {
     return axios.get("/api/giftcards/" + id);
