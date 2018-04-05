@@ -16,7 +16,7 @@ class GiftCardContainer extends Component {
     pin: '',
     amount: '',
     id: '',
-    selectedCategory: ''
+    category: ''
   };
 
   /**
@@ -24,11 +24,21 @@ class GiftCardContainer extends Component {
    * @returns the state updated with the user's gift card data
    */
   componentDidMount = () => {
-    API.getUserGC({
-      _id: this.props._id
-    })
-    .then(res => this.setState({giftcards : res.data.giftcards}))
-    .catch(err => console.log(err));
+    if (this.state.category.length){
+      API.getCategoryGC({
+        _id: this.props._id,
+        category: this.state.category
+      })
+      .then(res => this.setState({giftcards : res.data.giftcards}))
+      .catch(err => console.log(err));
+    } 
+    else {
+      API.getUserGC({
+        _id: this.props._id
+      })
+      .then(res => this.setState({giftcards : res.data.giftcards}))
+      .catch(err => console.log(err));
+    }
   };
 
   /**
@@ -36,11 +46,21 @@ class GiftCardContainer extends Component {
    * @returns the state updated with the user's gift card data
    */
   componentDidUpdate = () => {
-    API.getUserGC({
-      _id: this.props._id
-    })
-    .then(res => this.setState({giftcards : res.data.giftcards}))
-    .catch(err => console.log(err));
+    if (this.state.category.length){
+      API.getCategoryGC({
+        _id: this.props._id,
+        category: this.state.category
+      })
+      .then(res => this.setState({giftcards : res.data.giftcards}))
+      .catch(err => console.log(err));
+    } 
+    else {
+      API.getUserGC({
+        _id: this.props._id
+      })
+      .then(res => this.setState({giftcards : res.data.giftcards}))
+      .catch(err => console.log(err));
+    }
   }
  
   /**
@@ -67,7 +87,7 @@ class GiftCardContainer extends Component {
     console.log(eventKey)
     switch(eventKey){
         case 1:
-            return null
+            return ''
             break;
         case 2:
             return 'Dining'
@@ -87,13 +107,13 @@ class GiftCardContainer extends Component {
   selectByCategory = eventKey => {
     const selected = this.switchCategory(eventKey)
     console.log('selected', selected)
-
-    API.getCategoryGC({
-        _id: this.props._id,
-        category: selected
-    })
-    .then(res => this.setState({giftcards : res.data.giftcards}))
-    .catch(err => console.log(err));
+    this.setState({category : selected})
+    // API.getCategoryGC({
+    //     _id: this.props._id,
+    //     category: selected
+    // })
+    // .then(res => this.setState({giftcards : res.data.giftcards}))
+    // .catch(err => console.log(err));
 }
 
   render() {
