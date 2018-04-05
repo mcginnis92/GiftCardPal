@@ -10,5 +10,5 @@
 .card {
     opacity: 100%;
     animation-name: fadeCard;
-    animation-duration: 4s;
+    animation-duration: 2s;
 }

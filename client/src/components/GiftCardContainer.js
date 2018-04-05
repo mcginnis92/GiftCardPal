@@ -30,14 +30,6 @@ class GiftCardContainer extends Component {
     .catch(err => console.log(err));
   };
 
-  selectByCategory = selectedCategory => {
-    API.getCategoryGC({
-      category: 'Activities'
-    })
-    .then(res => this.setState({giftcards : res.data.giftcards}))
-    .catch(err => console.log(err));
-  }
-
   /**
    * @function componentDidUpdate re-renders the gift cards after any changes have been made 
    * @returns the state updated with the user's gift card data
@@ -74,7 +66,7 @@ class GiftCardContainer extends Component {
 
     return (
       <div>
-        <Navigation />
+        <Navigation _id={this.props._id} />
         {this.state.modal && 
         <GiftCardModal 
           toggle={this.toggleModal}
