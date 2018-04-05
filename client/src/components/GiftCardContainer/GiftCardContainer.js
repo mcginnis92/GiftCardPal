@@ -24,28 +24,28 @@ class GiftCardContainer extends Component {
    * @returns the state updated with the user's gift card data
    */
   componentDidMount = () => {
-    if (this.state.category.length){
-      API.getCategoryGC({
-        _id: this.props._id,
-        category: this.state.category
-      })
-      .then(res => this.setState({giftcards : res.data.giftcards}))
-      .catch(err => console.log(err));
-    } 
-    else {
+    // if (this.state.category.length){
+    //   API.getCategoryGC({
+    //     _id: this.props._id,
+    //     category: this.state.category
+    //   })
+    //   .then(res => this.setState({giftcards : res.data.giftcards}))
+    //   .catch(err => console.log(err));
+    // } 
+    // else {
       API.getUserGC({
         _id: this.props._id
       })
       .then(res => this.setState({giftcards : res.data.giftcards}))
       .catch(err => console.log(err));
-    }
+    // }
   };
 
   /**
    * @function componentDidUpdate re-renders the gift cards after any changes have been made 
    * @returns the state updated with the user's gift card data
    */
-  componentDidUpdate = () => {
+  componentWillUpdate = () => {
     if (this.state.category.length){
       API.getCategoryGC({
         _id: this.props._id,
@@ -83,8 +83,12 @@ class GiftCardContainer extends Component {
     });
   };
 
+  /**
+   * @function switchCategory tells us which category the user selected
+   * @param {event} eventKey refers to the event key that was clicked
+   * @returns a category as a string that we will use to update the state
+   */
   switchCategory = eventKey => {
-    console.log(eventKey)
     switch(eventKey){
         case 1:
             return ''
@@ -102,19 +106,18 @@ class GiftCardContainer extends Component {
             return 'Health and Wellness'
             break;
     }
-}
+  }
 
+  /**
+   * @function selectByCategory sets the state to the category the user has selected
+   * @param eventKey refers to the string returned from the switchCategory function
+   * @returns the updated state
+   */
   selectByCategory = eventKey => {
     const selected = this.switchCategory(eventKey)
     console.log('selected', selected)
     this.setState({category : selected})
-    // API.getCategoryGC({
-    //     _id: this.props._id,
-    //     category: selected
-    // })
-    // .then(res => this.setState({giftcards : res.data.giftcards}))
-    // .catch(err => console.log(err));
-}
+  }
 
   render() {
 
