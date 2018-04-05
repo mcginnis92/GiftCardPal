@@ -13,9 +13,9 @@ module.exports = {
 
   //Find the gift cards by category
   findCategory: function(req, res) {
-    console.log(req.params);
+    console.log(req.params._id, req.params.category);
 
-    db.User.findOne(req.params._id)
+    db.User.findOne({_id: req.params._id})
     .populate({
       path: "giftcards",
       match: { category: req.params.category },
