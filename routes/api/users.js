@@ -13,4 +13,8 @@ router.route("/login")
 router.route("/:_id")
   .get(usersController.findOne)
 
+//Matches with "api/users/:_id/:category"
+router.route("/:_id/:category")
+  .get(usersController.findCategory)
+
 module.exports = router;

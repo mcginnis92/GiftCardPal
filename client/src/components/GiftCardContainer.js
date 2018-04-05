@@ -3,6 +3,7 @@ import { Alert } from 'react-bootstrap';
 import GiftCard from './GiftCard';
 import API from '../utils/API';
 import GiftCardModal from './GiftCard/GiftCardModal';
+import Navigation from './Navigation';
 
 class GiftCardContainer extends Component {
 
@@ -13,7 +14,8 @@ class GiftCardContainer extends Component {
     name: '',
     pin: '',
     amount: '',
-    id: ''
+    id: '',
+    selectedCategory: ''
   };
 
   /**
@@ -27,6 +29,14 @@ class GiftCardContainer extends Component {
     .then(res => this.setState({giftcards : res.data.giftcards}))
     .catch(err => console.log(err));
   };
+
+  selectByCategory = selectedCategory => {
+    API.getCategoryGC({
+      category: 'Activities'
+    })
+    .then(res => this.setState({giftcards : res.data.giftcards}))
+    .catch(err => console.log(err));
+  }
 
   /**
    * @function componentDidUpdate re-renders the gift cards after any changes have been made 
@@ -64,6 +74,7 @@ class GiftCardContainer extends Component {
 
     return (
       <div>
+        <Navigation />
         {this.state.modal && 
         <GiftCardModal 
           toggle={this.toggleModal}

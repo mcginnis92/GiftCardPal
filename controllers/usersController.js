@@ -11,6 +11,17 @@ module.exports = {
       .catch(err => res.status(422).json(err));
   },
 
+  //Find the gift cards by category
+  findCategory: function(req, res) {
+    db.User.findOne(req.params._id)
+    .populate({
+      path: "giftcards",
+      match: { category: selectedCategory},
+    })
+    .then(dbModel => res.json(dbModel))
+    .catch(err => res.status(422).json(err));
+  },
+
   //Create a new user and hash their password
   create: function(req, res) {
     var myPlaintextPassword = req.body.password;

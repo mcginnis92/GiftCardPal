@@ -30,6 +30,9 @@ export default {
   getUserGC: function(user){
     return axios.get("/api/users/" + user._id);
   },
+  getCategoryGC: function(user){
+    return axios.get("/api/users/" + user._id + "/" + user.category)
+  },
   //Checks user login
   loginUser: function(userData){
     return axios.post("api/users/login", userData)
