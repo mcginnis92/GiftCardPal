@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Alert } from 'react-bootstrap';
-import GiftCard from './GiftCard';
-import API from '../utils/API';
-import GiftCardModal from './GiftCard/GiftCardModal';
-import Navigation from './Navigation';
+import { Alert, Row, Panel, Col, Nav, NavItem } from 'react-bootstrap';
+import GiftCard from '../GiftCard';
+import FontAwesome from 'react-fontawesome';
+import API from '../../utils/API';
+import GiftCardModal from '../GiftCard/GiftCardModal';
+import './GiftCardContainer.css';
 
 class GiftCardContainer extends Component {
 
@@ -62,11 +63,51 @@ class GiftCardContainer extends Component {
     });
   };
 
+  switchCategory = eventKey => {
+    console.log(eventKey)
+    switch(eventKey){
+        case 1:
+            return null
+            break;
+        case 2:
+            return 'Dining'
+            break;
+        case 3:
+            return 'Activities'
+            break;
+        case 4: 
+            return 'Retail'
+            break;
+        case 5: 
+            return 'Health and Wellness'
+            break;
+    }
+}
+
+  selectByCategory = eventKey => {
+    const selected = this.switchCategory(eventKey)
+    console.log('selected', selected)
+
+    API.getCategoryGC({
+        _id: this.props._id,
+        category: selected
+    })
+    .then(res => this.setState({giftcards : res.data.giftcards}))
+    .catch(err => console.log(err));
+}
+
   render() {
 
     return (
       <div>
-        <Navigation _id={this.props._id} />
+        <Nav bsStyle="pills" onSelect={this.selectByCategory}>
+          <NavItem bsClass="teal" eventKey={1} ><FontAwesome name='credit-card' size="2x" /></NavItem>
+          <NavItem bsClass="teal" eventKey={2} ><FontAwesome name='cutlery' size="2x" /></NavItem>
+          <NavItem bsClass="teal" eventKey={3} ><FontAwesome name='music' size="2x" /></NavItem>
+          <NavItem bsClass="teal" eventKey={4} ><FontAwesome name='shopping-cart' size="2x" /></NavItem>
+          <NavItem bsClass="teal" eventKey={5} ><FontAwesome name='heartbeat' size="2x" /></NavItem>
+        </Nav>
+
         {this.state.modal && 
         <GiftCardModal 
           toggle={this.toggleModal}
@@ -77,6 +118,7 @@ class GiftCardContainer extends Component {
           id={this.state.id}
           image={this.state.image}
         />}
+
         {this.state.giftcards.map(elem => 
         <GiftCard
           name={elem.name} 
