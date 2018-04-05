@@ -24,15 +24,6 @@ class GiftCardContainer extends Component {
    * @returns the state updated with the user's gift card data
    */
   componentDidMount = () => {
-    // if (this.state.category.length){
-    //   API.getCategoryGC({
-    //     _id: this.props._id,
-    //     category: this.state.category
-    //   })
-    //   .then(res => this.setState({giftcards : res.data.giftcards}))
-    //   .catch(err => console.log(err));
-    // } 
-    // else {
       API.getUserGC({
         _id: this.props._id
       })
@@ -42,11 +33,11 @@ class GiftCardContainer extends Component {
   };
 
   /**
-   * @function componentDidUpdate re-renders the gift cards after any changes have been made 
+   * @function componentDidUpdate re-renders the gift cards if any changes have been made 
    * @returns the state updated with the user's gift card data
    */
-  componentWillUpdate = () => {
-    if (this.state.category.length){
+  componentDidUpdate = () => {
+    if (this.state.category){
       API.getCategoryGC({
         _id: this.props._id,
         category: this.state.category
@@ -62,6 +53,15 @@ class GiftCardContainer extends Component {
       .catch(err => console.log(err));
     }
   }
+
+  /**
+   * @function shouldComponentUpdate tells us if a change has been made to the category state or not
+   * @param nextState indicates what the state has been changed to
+   * @returns {boolean}
+   */
+  shouldComponentUpdate = (nextState) => {
+    return nextState.category !== this.state.category
+  };
  
   /**
    * @function toggleModal triggers a modal with the gift card information
@@ -91,7 +91,7 @@ class GiftCardContainer extends Component {
   switchCategory = eventKey => {
     switch(eventKey){
         case 1:
-            return ''
+            return null
             break;
         case 2:
             return 'Dining'
