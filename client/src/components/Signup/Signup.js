@@ -114,7 +114,7 @@ class Signup extends React.Component {
             password: this.state.password,
             fullname: this.state.fullname
             })
-            .then(res => this.setState({isLoggedIn : true, fullname: res.data.fullname, _id: res.data._id}))
+            .then(res => res.data ? this.setState({isLoggedIn : true, fullname: res.data.fullname, _id: res.data._id}) : this.handleAlert())
             .catch(err => this.handleAlert())
     };
     
