@@ -42,7 +42,6 @@ class Login extends React.Component {
      */
     handleFormSubmit = event => {
         event.preventDefault();
-        console.log(this.state, "form submitted")
         API.loginUser({
             username: this.state.username,
             password: this.state.password

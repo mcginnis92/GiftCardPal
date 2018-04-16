@@ -24,19 +24,6 @@ class GiftCardContainer extends Component {
    * @returns the state updated with the user's gift card data
    */
   componentDidMount = () => {
-      API.getUserGC({
-        _id: this.props._id
-      })
-      .then(res => this.setState({giftcards : res.data.giftcards}))
-      .catch(err => console.log(err));
-    // }
-  };
-
-  /**
-   * @function componentDidUpdate re-renders the gift cards if any changes have been made 
-   * @returns the state updated with the user's gift card data
-   */
-  componentDidUpdate = () => {
     if (this.state.category){
       API.getCategoryGC({
         _id: this.props._id,
@@ -52,17 +39,34 @@ class GiftCardContainer extends Component {
       .then(res => this.setState({giftcards : res.data.giftcards}))
       .catch(err => console.log(err));
     }
-  }
+  };
 
   /**
-   * @function shouldComponentUpdate tells us if a change has been made to the category state or not
-   * @param nextState indicates what the state has been changed to
-   * @returns {boolean}
+   * @function componentDidUpdate re-renders the gift cards if any changes have been made 
+   * @param prevProps
+   * @param prevState the value of the previous state
+   * @returns the state updated with the user's gift card data
    */
-  shouldComponentUpdate = (nextState) => {
-    return nextState.category !== this.state.category
-  };
- 
+  componentDidUpdate = (prevProps, prevState) => {
+    if (prevState.category !== this.state.category) {
+      if (this.state.category){
+        API.getCategoryGC({
+          _id: this.props._id,
+          category: this.state.category
+        })
+        .then(res => this.setState({giftcards : res.data.giftcards}))
+        .catch(err => console.log(err));
+      } 
+      else {
+        API.getUserGC({
+          _id: this.props._id
+        })
+        .then(res => this.setState({giftcards : res.data.giftcards}))
+        .catch(err => console.log(err));
+      }
+    }
+  }
+
   /**
    * @function toggleModal triggers a modal with the gift card information
    * @param {number} number the gift card number
@@ -115,7 +119,6 @@ class GiftCardContainer extends Component {
    */
   selectByCategory = eventKey => {
     const selected = this.switchCategory(eventKey)
-    console.log('selected', selected)
     this.setState({category : selected})
   }
 
