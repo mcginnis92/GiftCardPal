@@ -106,7 +106,8 @@ class GiftCardForm extends React.Component {
             image: this.state.imagePreviewUrl
             })
             .then(this.state.toggle(false))
-            .then(this.forceUpdate())
+            .then(console.log('state: ', this.state))
+            // .then(this.forceUpdate())
             .catch(err => console.log(err))
     };
     

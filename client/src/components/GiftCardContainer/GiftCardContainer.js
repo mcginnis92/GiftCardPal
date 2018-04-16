@@ -65,6 +65,40 @@ class GiftCardContainer extends Component {
         .catch(err => console.log(err));
       }
     }
+    else if (prevState.id !== this.state.id) {
+      if (this.state.category){
+        API.getCategoryGC({
+          _id: this.props._id,
+          category: this.state.category
+        })
+        .then(res => this.setState({giftcards : res.data.giftcards}))
+        .catch(err => console.log(err));
+      } 
+      else {
+        API.getUserGC({
+          _id: this.props._id
+        })
+        .then(res => this.setState({giftcards : res.data.giftcards}))
+        .catch(err => console.log(err));
+      }
+    }
+    else if (prevState.giftcards !== this.state.giftcards) {
+      if (this.state.category){
+        API.getCategoryGC({
+          _id: this.props._id,
+          category: this.state.category
+        })
+        .then(res => this.setState({giftcards : res.data.giftcards}))
+        .catch(err => console.log(err));
+      } 
+      else {
+        API.getUserGC({
+          _id: this.props._id
+        })
+        .then(res => this.setState({giftcards : res.data.giftcards}))
+        .catch(err => console.log(err));
+      }
+    }
   }
 
   /**
