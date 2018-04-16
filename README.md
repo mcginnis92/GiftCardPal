@@ -22,16 +22,16 @@ Clone this repository. cd into the repository and open in your code editor of ch
 - [Heroku](https://herokuapp.com)
 
 ## Functionality
-![view all](screenshots/home.png)
+![view all](screenshots/home.png)</br>
 View all Gift Cards
 
-![view by category](screenshots/category.png)
+![view by category](screenshots/category.png)</br>
 View by Category
 
-![add a card](screenshots/add.png)
+![add a card](screenshots/add.png)</br>
 Add a New Card
 
-![update](screenshots/update.png)
+![update](screenshots/update.png)</br>
 Update or Remove a Card
 
 ## Future Ideas 
