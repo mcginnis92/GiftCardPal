@@ -2,3 +2,14 @@
     margin-top: 0.5em;
     color: #08aeea
 }
+
+@keyframes fadeCard {
+    from {opacity: 0%;}
+    to {opacity: 100%;}
+}
+
+.panel {
+    opacity: 100%;
+    animation-name: fadeCard;
+    animation-duration: 2s;
+}

@@ -29,7 +29,7 @@ class New extends React.Component {
                 <GiftCardForm _id={this.state._id} toggle={this.addCard} />
             :
                 <Row>
-                    <Panel onClick={() => this.addCard(true)}>
+                    <Panel onClick={() => this.addCard(true)} className="panel">
                         <Panel.Body>
                             <Col xs={9}>
                                 <h3>Add New</h3>
